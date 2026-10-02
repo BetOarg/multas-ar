@@ -1,0 +1,23 @@
+name: ocr
+description: Adaptador OCR multiplataforma para Multas AR.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+
+  # OCR on-device
+  google_mlkit_text_recognition: ^0.13.1
+  flutter_ocr_kit: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^6.0.0
