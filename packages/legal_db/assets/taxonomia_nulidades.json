@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "last_updated": "2026-06-28"
+  },
+  "categorias": {
+    "formales": {
+      "nombre": "Nulidades Formales",
+      "descripcion": "Vicios en la forma del acta de infracción",
+      "vicios": [
+        {
+          "id": "F-01",
+          "vicio": "Falta de firma del agente de control",
+          "fundamento": "Art. 66 inc. d Ley 24.449",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "ALTA"
+        },
+        {
+          "id": "F-02",
+          "vicio": "Falta de identificación del agente (dependencia, nombre, legajo)",
+          "fundamento": "Art. 66 Ley 24.449",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "MEDIA"
+        },
+        {
+          "id": "F-03",
+          "vicio": "Acta sin formulario reglamentario (Anexo U Ley 24.449)",
+          "fundamento": "Art. 66 Ley 24.449",
+          "consecuencia": "Nulidad absoluta",
+          "certeza": "ALTA"
+        },
+        {
+          "id": "F-04",
+          "vicio": "Datos ilegibles o en blanco",
+          "fundamento": "Principio de claridad de los actos administrativos",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "MEDIA"
+        },
+        {
+          "id": "F-05",
+          "vicio": "Falta de entrega de copia al infractor",
+          "fundamento": "Art. 66 inc. d Ley 24.449",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "MEDIA"
+        },
+        {
+          "id": "F-06",
+          "vicio": "Falta de individualización del hecho (descripción genérica)",
+          "fundamento": "Principio de tipicidad",
+          "consecuencia": "Nulidad absoluta",
+          "certeza": "ALTA"
+        },
+        {
+          "id": "F-07",
+          "vicio": "Contradicción interna en el acta (hora vs. lugar)",
+          "fundamento": "Principio de coherencia",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "MEDIA"
+        },
+        {
+          "id": "F-08",
+          "vicio": "Falta de indicación de fecha de notificación en el acta",
+          "fundamento": "Normas procedimentales locales",
+          "consecuencia": "Nulidad relativa",
+          "certeza": "BAJA"
+        }
+      ]
+    },
+    "sustanciales": {
+      "nombre": "Nulidades Sustanciales",
+      "descripcion": "Vicios en el contenido o tipificación",
+      "vicios": [
+        { "id": "S-01", "vicio": "Falta de tipificación legal (artículo inexistente)", "fundamento": "Principio de legalidad", "consecuencia": "Nulidad absoluta", "certeza": "ALTA" },
+        { "id": "S-02", "vicio": "Infracción no contemplada en la norma aplicable", "fundamento": "Principio de tipicidad", "consecuencia": "Nulidad absoluta", "certeza": "ALTA" },
+        { "id": "S-03", "vicio": "Monto fuera de los límites legales", "fundamento": "Art. 38+ Ley 13.927 / ordenanzas", "consecuencia": "Insubsistencia parcial", "certeza": "ALTA" },
+        { "id": "S-04", "vicio": "Aplicación retroactiva de norma", "fundamento": "Art. 18 CN", "consecuencia": "Nulidad absoluta", "certeza": "ALTA" },
+        { "id": "S-05", "vicio": "Falta de publicidad de la ordenanza", "fundamento": "Principio de publicidad", "consecuencia": "Nulidad absoluta", "certeza": "MEDIA" },
+        { "id": "S-06", "vicio": "Inconstitucionalidad de la ordenanza (exceso competencia)", "fundamento": "Art. 19 CN", "consecuencia": "Nulidad absoluta", "certeza": "BAJA" },
+        { "id": "S-07", "vicio": "Doble sanción por mismo hecho (non bis in idem)", "fundamento": "Principio non bis in idem", "consecuencia": "Nulidad absoluta", "certeza": "MEDIA" }
+      ]
+    },
+    "procedimentales": {
+      "nombre": "Nulidades Procedimentales",
+      "descripcion": "Vicios en el procedimiento administrativo o judicial",
+      "vicios": [
+        { "id": "P-01", "vicio": "Notificación fuera de plazo", "fundamento": "Plazos ley/ordenanza local", "consecuencia": "Caducidad", "certeza": "ALTA" },
+        { "id": "P-02", "vicio": "Notificación en domicilio incorrecto", "fundamento": "Domicilio legal/real", "consecuencia": "Nulidad relativa", "certeza": "MEDIA" },
+        { "id": "P-03", "vicio": "Falta de notificación previa al descargo", "fundamento": "Derecho de defensa", "consecuencia": "Nulidad relativa", "certeza": "MEDIA" },
+        { "id": "P-04", "vicio": "Vencimiento de plazo de prescripción", "fundamento": "Plazo según gravedad", "consecuencia": "Prescripción", "certeza": "ALTA" },
+        { "id": "P-05", "vicio": "Falta de intimación previa a ejecución fiscal", "fundamento": "Procedimiento ejecutivo", "consecuencia": "Nulidad relativa", "certeza": "MEDIA" },
+        { "id": "P-06", "vicio": "Notificación por cédula sin acreditar despacho previo", "fundamento": "CPCC / normas locales", "consecuencia": "Nulidad relativa", "certeza": "BAJA" },
+        { "id": "P-07", "vicio": "Falta de ofrecimiento de prueba en el descargo", "fundamento": "Derecho de defensa", "consecuencia": "Nulidad relativa", "certeza": "BAJA" }
+      ]
+    },
+    "tecnicas": {
+      "nombre": "Nulidades Técnicas (Fotomultas)",
+      "descripcion": "Vicios técnicos de equipos de control automático",
+      "vicios": [
+        { "id": "T-01", "vicio": "Equipo no homologado", "fundamento": "Art. 28 Ley 13.927 PBA", "consecuencia": "Nulidad absoluta", "certeza": "ALTA" },
+        { "id": "T-02", "vicio": "Falta de señalización preventiva", "fundamento": "Art. 28 bis Ley 13.927 PBA", "consecuencia": "Nulidad absoluta", "certeza": "ALTA" },
+        { "id": "T-03", "vicio": "Falta de certificado de calibración vigente", "fundamento": "Art. 28 inc. c Ley 13.927 PBA", "consecuencia": "Nulidad relativa", "certeza": "ALTA" },
+        { "id": "T-04", "vicio": "Velocidad medida sin considerar margen de error", "fundamento": "Art. 28 inc. c Ley 13.927 PBA", "consecuencia": "Corrección monto", "certeza": "ALTA" },
+        { "id": "T-05", "vicio": "Falta de fotografía que identifique al conductor", "fundamento": "Principio de individualización", "consecuencia": "Nulidad relativa", "certeza": "MEDIA" },
+        { "id": "T-06", "vicio": "Falta de homologación del software", "fundamento": "Resoluciones técnicas locales", "consecuencia": "Nulidad relativa", "certeza": "MEDIA" },
+        { "id": "T-07", "vicio": "Falta de mantenimiento periódico", "fundamento": "Plazos reglamentarios locales", "consecuencia": "Nulidad relativa", "certeza": "BAJA" },
+        { "id": "T-08", "vicio": "Ángulo de captura que no permite identificar patente", "fundamento": "Requisitos técnicos", "consecuencia": "Nulidad relativa", "certeza": "BAJA" },
+        { "id": "T-09", "vicio": "Falta de resolución mínima en fotografía", "fundamento": "Normativas locales (píxeles/metro)", "consecuencia": "Nulidad relativa", "certeza": "BAJA" }
+      ]
+    }
+  }
+}
