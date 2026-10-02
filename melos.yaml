@@ -1,0 +1,46 @@
+name: multas_ar
+
+packages:
+  - packages/*
+  - apps/*
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  analyze:
+    description: Ejecuta flutter analyze en todos los paquetes
+    run: melos exec -- flutter analyze
+
+  test:
+    description: Ejecuta tests en todos los paquetes
+    run: melos exec -- flutter test
+
+  format:
+    description: Formatea todo el código con dart format
+    run: melos exec -- dart format . --line-length=80
+
+  gen:drift:
+    description: Genera código de Drift en data_local
+    run: cd packages/data_local && dart run build_runner build --delete-conflicting-outputs
+
+  gen:all:
+    description: Genera todo el código (Drift, Riverpod, etc.)
+    run: melos exec -- dart run build_runner build --delete-conflicting-outputs
+
+  build:android:
+    description: Build AAB para Play Store
+    run: cd apps/mobile && flutter build appbundle --release
+
+  build:ios:
+    description: Build IPA para App Store
+    run: cd apps/mobile && flutter build ipa --release
+
+  dev:
+    description: Corre la app en modo desarrollo
+    run: cd apps/mobile && flutter run
+
+  clean:
+    description: Limpia todos los paquetes
+    run: melos exec -- flutter clean
