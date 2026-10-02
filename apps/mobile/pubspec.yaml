@@ -1,0 +1,51 @@
+name: multas_ar_mobile
+description: App móvil de Multas AR (Android + iOS)
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Paquetes del monorepo
+  legal_db:
+    path: ../../packages/legal_db
+  core:
+    path: ../../packages/core
+  domain:
+    path: ../../packages/domain
+  data_local:
+    path: ../../packages/data_local
+  ocr:
+    path: ../../packages/ocr
+  pdf_generator:
+    path: ../../packages/pdf_generator
+  ui_kit:
+    path: ../../packages/ui_kit
+
+  # Navegación y estado
+  go_router: ^14.6.2
+  flutter_riverpod: ^2.6.1
+
+  # Utilidades
+  path_provider: ^2.1.5
+  file_picker: ^8.1.6
+  image_picker: ^1.1.2
+  share_plus: ^10.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
