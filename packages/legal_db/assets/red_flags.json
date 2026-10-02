@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "last_updated": "2026-06-28"
+  },
+  "categorias": {
+    "A": {
+      "nombre": "Vicios de Forma del Acta",
+      "flags": [
+        {
+          "codigo": "RF-A01",
+          "nombre": "Falta de firma del agente",
+          "criterio_deteccion": "OCR no detecta firma en el acta",
+          "fundamento_legal": "Art. 37 Ley 24.449",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-A02",
+          "nombre": "Falta de identificación del agente",
+          "criterio_deteccion": "Campos 'Agente' o 'Legajo' vacíos",
+          "fundamento_legal": "Art. 36 Ley 24.449",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-A03",
+          "nombre": "Datos del vehículo incompletos",
+          "criterio_deteccion": "Patente no coincide con formato RNPA",
+          "fundamento_legal": "Principio de tipicidad",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-A06",
+          "nombre": "Falta de indicación del artículo infringido",
+          "criterio_deteccion": "Campo 'Artículo' vacío",
+          "fundamento_legal": "Principio de legalidad",
+          "impacto": "ALTO"
+        }
+      ]
+    },
+    "B": {
+      "nombre": "Vicios del Procedimiento",
+      "flags": [
+        {
+          "codigo": "RF-B01",
+          "nombre": "Notificación tardía (>90 días)",
+          "criterio_deteccion": "fecha_notificacion - fecha_infraccion > 90 días",
+          "fundamento_legal": "Principio de razonabilidad",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-B04",
+          "nombre": "Falta de habilitación del equipo de fotomulta",
+          "criterio_deteccion": "Verificar en base de datos de equipos habilitados",
+          "fundamento_legal": "Ley 2.940 CABA / Decreto 1.092/2016",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-B07",
+          "nombre": "Multa por exceso de velocidad dentro del 10% de tolerancia",
+          "criterio_deteccion": "velocidad_detectada <= velocidad_maxima * 1.10",
+          "fundamento_legal": "Resoluciones Defensoría del Pueblo PBA",
+          "impacto": "ALTO"
+        }
+      ]
+    },
+    "C": {
+      "nombre": "Derechos y Garantías",
+      "flags": [
+        {
+          "codigo": "RF-C03",
+          "nombre": "Monto superior al máximo legal",
+          "criterio_deteccion": "Cruzar UF con tabla de normativa vigente",
+          "fundamento_legal": "Art. 84 Ley 24.449",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-C04",
+          "nombre": "Acumulación de multas por mismo hecho (non bis in idem)",
+          "criterio_deteccion": "Detectar actas con mismo vehículo, fecha, lugar, artículo",
+          "fundamento_legal": "Principio non bis in idem. Art. 18 CN",
+          "impacto": "ALTO"
+        }
+      ]
+    },
+    "D": {
+      "nombre": "Caducidad y Prescripción",
+      "flags": [
+        {
+          "codigo": "RF-D01",
+          "nombre": "Prescripción operada (2 años sin actos interruptivos)",
+          "criterio_deteccion": "fecha_infraccion + 2 años < hoy Y sin notificaciones",
+          "fundamento_legal": "Art. 65 inc. 4° CP",
+          "impacto": "ALTO"
+        },
+        {
+          "codigo": "RF-D04",
+          "nombre": "Prescripción próxima (faltan 30 días o menos)",
+          "criterio_deteccion": "fecha_infraccion + 2 años - hoy <= 30 días",
+          "fundamento_legal": "Estrategia: esperar vs. descargar",
+          "impacto": "INFORMATIVO"
+        }
+      ]
+    }
+  }
+}
