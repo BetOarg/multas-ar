@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "last_updated": "2026-06-28",
+    "next_review": "2026-09-30",
+    "disclaimer": "Base normativa orientativa. Verificar siempre contra el texto oficial vigente. No reemplaza asesoramiento jurídico profesional."
+  },
+  "jurisdicciones": [
+    {
+      "id": "nacional",
+      "nombre": "Nacional",
+      "tipo": "Nacional",
+      "codigo_iso": "AR",
+      "ley_principal": "Ley 24.449",
+      "ley_procesal": "Ley 24.449",
+      "prescripcion": {
+        "tipo": "dual",
+        "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449" },
+        "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449" },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "pago_voluntario": { "dias": 30, "tipo": "corridos", "art": "Art. 84 L. 24.449" },
+        "descargo": null,
+        "notificacion_fotomulta": null
+      },
+      "interrupciones_prescripcion": [
+        "nueva_falta_grave",
+        "secuela_juicio_contravencional",
+        "secuela_juicio_ejecutivo",
+        "secuela_juicio_judicial"
+      ],
+      "extincion_accion": [
+        "muerte_imputado",
+        "indulto_conmutacion",
+        "prescripcion"
+      ],
+      "advertencias": [
+        "Prescripción NO es automática: debe ser invocada y reconocida formalmente.",
+        "Cualquier notificación fehaciente reinicia el plazo.",
+        "Pago voluntario implica reconocimiento de la infracción."
+      ]
+    },
+    {
+      "id": "pba",
+      "nombre": "Provincia de Buenos Aires",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-B",
+      "ley_principal": "Ley 13.927",
+      "ley_modificatoria": "Ley 15.002 (2018)",
+      "ley_procesal": "Ley 13.927",
+      "prescripcion": {
+        "tipo": "dual",
+        "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449 (supletorio)" },
+        "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449 (supletorio)" },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "pago_voluntario": {
+          "manual": { "dias": 30, "tipo": "habiles_administrativos" },
+          "automatica": { "dias": 60, "tipo": "corridos" }
+        },
+        "descargo": { "dias": 45, "tipo": "habiles_administrativos", "art": "Art. 35 L. 13.927" },
+        "apelacion_judicial": { "dias": 5, "tipo": "habiles", "art": "Art. 41 L. 13.927" },
+        "notificacion_fotomulta": { "dias": 60, "tipo": "habiles_administrativos", "art": "Art. 28 L. 13.927" },
+        "caducidad_licencia": { "dias": 90, "tipo": "corridos", "art": "Art. 35 L. 13.927" }
+      },
+      "organos": {
+        "administrativo": "Juzgado Administrativo de Infracciones de Tránsito Provincial (JAITP)",
+        "judicial": "Juzgado de Faltas Provincial / Cámara de Apelación",
+        "via_ejecutiva": "Juicio de apremio"
+      },
+      "alerta_dual": {
+        "activa": true,
+        "nivel_rojo": {
+          "texto": "El art. 28 de la Ley 13.927 establece caducidad automática si la notificación se despacha fuera de los 60 días hábiles.",
+          "via": "A",
+          "accion": "Solicitar archivo por caducidad de pleno derecho (texto normativo)."
+        },
+        "nivel_amarillo": {
+          "texto": "Cámara de Apelación de Gral. San Martín (Sala I, 2018, Exp. 37.639) interpretó que la Ley 15.002 eliminó la caducidad automática, calificando el plazo como 'ordenatorio, no perentorio'.",
+          "via": "B",
+          "accion": "Oponer nulidad por extemporaneidad acreditando perjuicio concreto."
+        }
+      },
+      "contacto": {
+        "web": "infraccionesba.gba.gob.ar",
+        "telefono": "(0221) 427-0034 int. 2304/2307",
+        "requiere_dve": true,
+        "nota_dve": "Requiere Domicilio Vial Electrónico constituido para consulta online."
+      },
+      "advertencias": [
+        "Adhesión a plan de pago implica reconocimiento de deuda y renuncia a recursos (Art. 35 L. 13.927).",
+        "Anotaciones en RUIT caducan a los 10 años (Art. 6 L. 13.927).",
+        "Verificar vigencia post-Ley 15.002 antes de invocar caducidad automática."
+      ]
+    },
+    {
+      "id": "caba",
+      "nombre": "Ciudad Autónoma de Buenos Aires",
+      "tipo": "CABA",
+      "codigo_iso": "AR-C",
+      "ley_principal": "Ley 451 (Código de Faltas)",
+      "ley_procesal": "Ley 1217 (t.c. Ley 6.764/2024)",
+      "prescripcion": {
+        "tipo": "dual_con_alerta",
+        "nominal": { "anios": 5, "art": "Art. 15 Ley 451" },
+        "alerta_jurisprudencial": {
+          "activa": true,
+          "anios": 2,
+          "fundamento": "Fallo Andrade, Karina - Juzgado Penal, Contravencional y de Faltas N° 15, 30/05/2023 (Causa 'Los Mana S.A.' CAU 236426/2021-0)",
+          "alcance": "Primera instancia, valor persuasivo (no vinculante general)",
+          "nota": "Declaró inconstitucional art. 15 L. 451, aplicando art. 65 inc. 4° CP (2 años)."
+        },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "descargo": { "dias": 5, "tipo": "habiles", "art": "Arts. 8 y cc. L. 1217" },
+        "apelacion": { "dias": 5, "tipo": "habiles", "art": "L. 1217" }
+      },
+      "organos": {
+        "administrativo": "Controlador Administrativo de Faltas / Junta de Faltas",
+        "judicial": "Justicia Penal, Contravencional y de Faltas CABA",
+        "via_ejecutiva": "CAyT CABA (Ley 189 CCAyT) mediante certificado de deuda"
+      },
+      "notificacion": {
+        "email_fehaciente": true,
+        "nota": "Desde reforma Ley 1217: notificación por correo electrónico es fehaciente."
+      },
+      "contacto": {
+        "organismo": "DGAI - Av. Regimiento de Patricios 65, CABA",
+        "whatsapp": "(54-11) 50500147",
+        "horario": "L-V 8-19h"
+      },
+      "advertencias": [
+        "Fallo Andrade: valor persuasivo, no vinculante general.",
+        "Verificar si el fallo fue confirmado en segunda instancia antes de invocarlo."
+      ]
+    },
+    {
+      "id": "rio_negro",
+      "nombre": "Río Negro",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-R",
+      "ley_principal": "Ley 5.263",
+      "ley_procesal": "Ley 5.263",
+      "prescripcion": {
+        "tipo": "dual_supletoria",
+        "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449 (supletorio)" },
+        "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449 (supletorio)" },
+        "computo_desde": "fecha_hecho",
+        "nota": "Arts. 56 y 58 L. 5.263 NO regulan prescripción (56: construcción de vehículos; 58: revisores de carga)."
+      },
+      "plazos": {
+        "pago_voluntario": {
+          "manual": { "dias": 30, "tipo": "corridos" },
+          "automatica": { "dias": 60, "tipo": "corridos" }
+        },
+        "descargo": { "dias": 5, "tipo": "habiles", "art": "Verificar L. 5.263" },
+        "notificacion_fotomulta": { "dias": 25, "tipo": "habiles_administrativos", "art": "Art. 39 L. 5.263" }
+      },
+      "advertencias": [
+        "Corrección: arts. 56 y 58 de L. 5.263 no regulan prescripción.",
+        "Prescripción se rige por arts. 88 y 89 L. 24.449 (aplicación supletoria)."
+      ]
+    },
+    {
+      "id": "cordoba",
+      "nombre": "Córdoba",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-X",
+      "ley_principal": "Ley 11.096/2025",
+      "ley_procesal": "Ley 11.096/2025",
+      "prescripcion": {
+        "tipo": "dual_supletoria",
+        "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449 (supletorio)" },
+        "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449 (supletorio)" },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "descargo": { "dias": null, "tipo": "variable_por_municipio", "art": "Verificar ordenanza" }
+      },
+      "organos": {
+        "administrativo": "Juzgado de Faltas Municipal / Centro de Atención al Infractor"
+      },
+      "advertencias": [
+        "Cada municipio puede tener ordenanza específica. Verificar antes de actuar.",
+        "Córdoba capital tiene régimen propio.",
+        "Ley 11.096/2025 reemplaza la Ley 8560 (normativa anterior)."
+      ]
+    },
+    {
+      "id": "santa_fe",
+      "nombre": "Santa Fe",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-S",
+      "ley_principal": "Ley 13.133",
+      "ley_procesal": "Ley 13.133 + Código Fiscal SF",
+      "prescripcion": {
+        "tipo": "dual_supletoria",
+        "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449 (supletorio)" },
+        "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449 (supletorio)" },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "descargo": { "dias": null, "tipo": "variable_por_ordenanza" }
+      },
+      "advertencias": [
+        "Sistema provincial con tribunales de faltas específicos.",
+        "Prescripción sujeta a actos interruptivos.",
+        "Consultar Código Fiscal SF arts. 115-118."
+      ]
+    },
+    {
+      "id": "mendoza",
+      "nombre": "Mendoza",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-M",
+      "ley_principal": "Ley 9024",
+      "ley_procesal": "Ley 9024",
+      "prescripcion": {
+        "tipo": "tripartita",
+        "leve": { "anios": 2, "art": "Art. 94 L. 9024" },
+        "grave": { "anios": 3, "art": "Art. 94 L. 9024" },
+        "gravisima": { "anios": 4, "art": "Art. 94 L. 9024" },
+        "computo_desde": "fecha_hecho"
+      },
+      "plazos": {
+        "descargo": { "dias": 10, "tipo": "habiles_administrativos", "art": "Verificar L. 9024" }
+      },
+      "advertencias": [
+        "Esquema tripartito: leve/grave/gravísima."
+      ]
+    },
+    {
+      "id": "neuquen",
+      "nombre": "Neuquén (Ciudad)",
+      "tipo": "Provincia",
+      "codigo_iso": "AR-Q",
+      "ley_principal": "Regulación local",
+      "ley_procesal": "Regulación local",
+      "prescripcion": {
+        "tipo": "simple",
+        "anios": 3,
+        "nota": "Sin distinción leve/grave (regulación local)",
+        "computo_desde": "fecha_hecho"
+      },
+      "advertencias": [
+        "Regulación municipal/local. Verificar normativa vigente."
+      ]
+    },
+    {
+      "id": "otras",
+      "nombre": "Otras jurisdicciones",
+      "tipo": "Fallback",
+      "advertencias": [
+        "Argentina es federal. Cada municipio puede tener ordenanza específica.",
+        "VERIFICAR normativa local ANTES de actuar.",
+        "Los plazos nacionales son pisos, no techos."
+      ]
+    }
+  ]
+}
