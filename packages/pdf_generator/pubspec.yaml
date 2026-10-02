@@ -1,0 +1,27 @@
+name: pdf_generator
+description: Generación de escritos legales en PDF.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+  domain:
+    path: ../domain
+  legal_db:
+    path: ../legal_db
+
+  pdf: ^3.11.1
+  printing: ^5.13.2
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^6.0.0
