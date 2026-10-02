@@ -1,7 +1,56 @@
+# Flutter/Dart
 .dart_tool/
-.flutter-plugins
+.packages
 build/
-ios/Pods/
-android/.gradle/
-*.iml
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
 .idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Android
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+*.jks
+*.keystore
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+*.ipa
+*.dSYM.zip
+
+# Env / Secrets
+.env
+.env.*
+!.env.example
+
+# Coverage / Logs
+coverage/
+*.log
+logs/
+
+# Melos
+melos_bootstrap.lock
+
+# Generados
+*.g.dart
+*.freezed.dart
+!packages/legal_db/lib/generated/*.g.dart
