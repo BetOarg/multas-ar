@@ -1,0 +1,10 @@
+name: multas_ar_workspace
+description: Asistente legal de infracciones de tránsito - Argentina
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dev_dependencies:
+  melos: ^6.2.0
