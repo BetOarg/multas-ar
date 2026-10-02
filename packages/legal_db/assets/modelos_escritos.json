@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "last_updated": "2026-06-28",
+    "disclaimer": "Los textos legales de estos modelos son orientativos. Verificar con abogado/a matriculado/a antes de presentar."
+  },
+  "modelos": [
+    {
+      "id": "descargo_pba",
+      "codigo": "A",
+      "titulo": "Descargo PBA (JAITP)",
+      "jurisdiccion": "pba",
+      "tipo_acta": ["manual"],
+      "plazo": { "dias": 45, "tipo": "habiles_administrativos", "art": "Art. 35 L. 13.927" },
+      "uso": "Descargo contra acta manual en Provincia de Buenos Aires",
+      "campos_obligatorios": [
+        "numero_juzgado", "departamento_judicial", "nombre", "dni", "cuil",
+        "domicilio_real", "domicilio_procesal", "email", "fecha_notificacion",
+        "numero_acta", "fecha_infraccion", "patente", "lugar"
+      ],
+      "cuerpo": "Al Sr./Sra. Juez/a Administrativo/a de Infracciones de Tránsito Provincial\nJuzgado N° {{numero_juzgado}} – Departamento Judicial {{departamento_judicial}}\n\n{{nombre}}, DNI {{dni}}, CUIL {{cuil}}, con domicilio real en {{domicilio_real}}, y constituyendo domicilio procesal en {{domicilio_procesal}} / email {{email}}, me presento y respetuosamente expongo:\n\nI. OBJETO\nQue en tiempo y forma (45 días hábiles, Art. 35 Ley 13.927), formulo DESCARGO contra el Acta de Comprobación N° {{numero_acta}}, labrada el {{fecha_infraccion}}, vehículo dominio {{patente}}, en jurisdicción de {{lugar}}.\n\nII. HECHOS\n{{relato_hechos}}\n\nIII. DERECHO\nFundo el presente en:\n- Derecho de defensa (Art. 18 CN)\n- {{articulo_infringido}}\n- Ley Provincial N° 13.927, Art. 35 y cc.\n\nIV. PRUEBA\n{{prueba_ofrecida}}\n\nV. PETITORIO\nPor todo lo expuesto, solicito:\n1. Se tenga por presentado el descargo en tiempo y forma.\n2. Se admita la prueba ofrecida.\n3. Se resuelva ARCHIVAR / ABSOLVER al suscripto respecto de la falta imputada.\n\n{{lugar_fecha}}\n{{firma_letrado}}"
+    },
+    {
+      "id": "descargo_caba",
+      "codigo": "B",
+      "titulo": "Descargo CABA (Controlador Administrativo de Faltas)",
+      "jurisdiccion": "caba",
+      "tipo_acta": ["manual"],
+      "plazo": { "dias": 5, "tipo": "habiles", "art": "Arts. 8 y cc. L. 1217 (t.c. L. 6.764/2024)" },
+      "uso": "Descargo contra acta CABA",
+      "campos_obligatorios": [
+        "nombre", "dni", "domicilio", "email", "numero_acta", "fecha_notificacion"
+      ],
+      "cuerpo": "Al/la Sr./Sra. Controlador/a Administrativo/a de Faltas\nCiudad Autónoma de Buenos Aires\n\n{{nombre}}, DNI N° {{dni}}, con domicilio en {{domicilio}}, constituyendo domicilio electrónico en {{email}}, me presento en relación al Acta N° {{numero_acta}} y expongo:\n\nI. OBJETO\nQue dentro del plazo de 5 (cinco) días hábiles contados desde la notificación del {{fecha_notificacion}}, vengo a formular DESCARGO conforme Arts. 8 y cc. de la Ley 1217 (Texto Consolidado Ley 6.764/2024).\n\nII. HECHOS\n{{relato_hechos}}\n\nIII. NULIDADES Y DEFENSAS\n{{nulidades}}\n\nIV. PRUEBA\n{{prueba_ofrecida}}\n\nV. PETITORIO\nSolicito:\n1. Se tenga presente el descargo.\n2. Se archive la actuación por {{motivo_archivo}}.\nCaso contrario, se requiera revisión ante la Junta de Faltas.\n\nPresto conformidad para recibir notificaciones al email: {{email}}\n\n{{lugar_fecha}} — {{firma}}"
+    },
+    {
+      "id": "caducidad_notificacion",
+      "codigo": "C",
+      "titulo": "Caducidad por Notificación Extemporánea (Fotomultas)",
+      "jurisdiccion": ["pba", "rio_negro"],
+      "tipo_acta": ["fotomulta"],
+      "plazo": {
+        "pba": { "dias": 60, "tipo": "habiles_administrativos", "art": "Art. 28 L. 13.927" },
+        "rio_negro": { "dias": 25, "tipo": "habiles_administrativos", "art": "Art. 39 L. 5.263" }
+      },
+      "uso": "Solicitar archivo por caducidad de pleno derecho en fotomultas",
+      "campos_obligatorios": [
+        "nombre", "dni", "domicilio", "email", "numero_acta", "fecha_infraccion",
+        "fecha_despacho_notificacion", "jurisdiccion"
+      ],
+      "cuerpo": "SEÑOR JUEZ / JUEZA DE FALTAS / JUSTICIA ADMINISTRATIVA DE INFRACCIONES DE TRÁNSITO DE {{jurisdiccion_nombre}}\n\n{{nombre}}, DNI N° {{dni}}, con domicilio en {{domicilio}}, constituyendo domicilio procesal electrónico en {{email}}, me presento y respetuosamente digo:\n\nI. OBJETO\nQue vengo a solicitar el ARCHIVO DE OFICIO / DECLARACIÓN DE CADUCIDAD de la actuación por infracción de tránsito N° {{numero_acta}}, por haber operado la caducidad de pleno derecho de la acción conforme {{norma_aplicable}}.\n\nII. HECHOS\nQue la infracción fue cometida el {{fecha_infraccion}} en {{lugar}}.\nQue el despacho de la notificación postal fue realizado el {{fecha_despacho_notificacion}}.\nQue el plazo legal de {{plazo_dias}} días hábiles, computado desde el {{fecha_infraccion}}, venció el {{fecha_limite}}.\n\nIII. FUNDAMENTO LEGAL\n{{fundamento_legal_especifico}}\n\nIV. FUNDAMENTO SUBSIDIARIO (solo PBA)\n{{fundamento_subsidiario_pba}}\n\nV. PETITORIO\na) Se tenga por presentado el presente escrito.\nb) Se disponga el ARCHIVO DE OFICIO por caducidad de pleno derecho.\nc) Se ordene la inmediata cancelación en el RUIT / RENAT.\nd) Costas a la parte actora.\n\n{{lugar_fecha}} — {{firma_letrado}}"
+    },
+    {
+      "id": "excepcion_prescripcion",
+      "codigo": "D",
+      "titulo": "Excepción de Prescripción (Juicio Ejecutivo)",
+      "jurisdiccion": ["nacional", "pba", "rio_negro", "cordoba", "santa_fe"],
+      "plazo": { "referencia": "Arts. 88 y 89 L. 24.449" },
+      "uso": "Oponer prescripción en procedimiento de ejecución",
+      "campos_obligatorios": [
+        "nombre", "dni", "domicilio", "numero_expediente", "fecha_infraccion", "tipo_falta"
+      ],
+      "cuerpo": "SEÑOR JUEZ / JUEZA DE FALTAS / DE EJECUCIÓN\nExpediente N° {{numero_expediente}}\n\n{{nombre}}, DNI N° {{dni}}, con domicilio en {{domicilio}}, me presento y digo:\n\nI. OBJETO\nQue vengo a oponer la EXCEPCIÓN DE PRESCRIPCIÓN en el presente procedimiento, conforme arts. 88 y 89 de la Ley 24.449.\n\nII. HECHOS Y CÁLCULO\nQue la infracción fue cometida el {{fecha_infraccion}}.\nQue conforme el art. 89 {{inciso}} Ley 24.449, el plazo de prescripción es de {{plazo_anios}} años, vencido el {{fecha_limite}}.\nQue el sistema registra {{interrupciones}} durante el período.\n\nIII. FUNDAMENTO\nConforme art. 89 último párrafo L. 24.449, la prescripción se interrumpe por:\n(i) comisión de nueva falta grave;\n(ii) secuela del juicio contravencional;\n(iii) secuela del juicio ejecutivo;\n(iv) secuela del juicio judicial.\nEn el caso de autos NO se ha configurado ninguna causal.\nConforme art. 88 L. 24.449, la prescripción es causal de extinción de la acción.\n\nIV. PETITORIO\na) Se tenga por opuesta la excepción de prescripción.\nb) Se declare extinguida la acción por prescripción.\nc) Se ordene el archivo definitivo.\nd) Costas a la parte actora.\n\n{{lugar_fecha}} — {{firma_letrado}}"
+    },
+    {
+      "id": "nulidad_formal",
+      "codigo": "E",
+      "titulo": "Nulidad por Vicios Formales",
+      "jurisdiccion": ["nacional", "pba", "caba"],
+      "uso": "Solicitar nulidad por vicios formales del acta",
+      "campos_obligatorios": [
+        "nombre", "dni", "domicilio", "numero_acta", "vicios_detectados"
+      ],
+      "cuerpo": "SEÑOR JUEZ / JUEZA DE FALTAS\n\n{{nombre}}, DNI N° {{dni}}, con domicilio en {{domicilio}}, me presento y digo:\n\nI. HECHOS\nLa notificación de la infracción N° {{numero_acta}} fue realizada sin observarse los requisitos formales aplicables.\n\nII. VICIOS OBSERVADOS\n{{vicios_detectados_lista}}\n\nIII. NULIDAD\nConforme art. 14 L. 24.449, toda infracción debe estar individualizada con: fecha, hora, lugar, circunstancias, vehículo, domicilio del infractor y firma del agente.\nLa omisión de cualquiera de estos requisitos genera nulidad de la infracción.\nConforme art. 28 bis L. 13.927 (PBA), el incumplimiento de la señalización vertical hace que las fotomultas sean 'nulas de nulidad absoluta y carentes de vínculo jurídico exigible'.\n\nIV. PETITORIO\nSolicito la nulidad de oficio de la infracción por vicios formales insalvables.\n\n{{lugar_fecha}} — {{firma}}"
+    },
+    {
+      "id": "amparo_fotomulta",
+      "codigo": "F",
+      "titulo": "Amparo por Fotomulta sin Notificación Válida",
+      "jurisdiccion": ["nacional"],
+      "uso": "Vía excepcional. Verificar agotamiento de vía administrativa.",
+      "campos_obligatorios": [
+        "tribunal", "nombre", "dni", "cuil", "domicilio", "email",
+        "abogado", "matricula", "organismo", "descripcion_acto", "agotamiento_via"
+      ],
+      "cuerpo": "ACCIÓN DE AMPARO — Art. 43 CN / Ley 16.986\n{{tribunal}}\n\n{{nombre}}, DNI {{dni}}, CUIL {{cuil}}, con domicilio en {{domicilio}}, domicilio electrónico {{email}}, con patrocinio letrado del Dr./Dra. {{abogado}}, MP {{matricula}}, promueve ACCIÓN DE AMPARO contra {{organismo}} por los siguientes hechos y derecho:\n\nI. OBJETO\nSe solicita tutela urgente ante acto u omisión que afecta con arbitrariedad manifiesta el derecho de defensa (Art. 18 CN), en el marco de {{descripcion_acto}}.\n\nII. ADMISIBILIDAD\n- Acto u omisión manifiestamente ilegítimo/arbitrario.\n- No existe recurso administrativo o judicial ordinario idóneo.\n- La lesión al derecho es actual y continua.\n\nIII. HECHOS CRONOLÓGICOS\n{{relato_cronologico}}\n\nIV. AGOTAMIENTO DE VÍA\n{{agotamiento_via}}\n\nV. MEDIDA CAUTELAR\nSe solicita suspensión del acto impugnado (art. 15 L. 16.986), dado que: {{fundamento_cautelar}}.\n\nVI. DERECHO\n- Art. 43 CN; Ley 16.986\n- Normativa local aplicable\n- Jurisprudencia verificada\n\nVII. PETITORIO\n1. Admitir la acción de amparo.\n2. Otorgar la medida cautelar solicitada.\n3. En definitiva, declarar la nulidad del acto impugnado y/u ordenar {{petitorio_final}}.\n\n{{lugar_fecha}} — {{firma_letrado}}"
+    },
+    {
+      "id": "amparo_retencion_licencia",
+      "codigo": "G",
+      "titulo": "Amparo por Retención Ilegal de Licencia",
+      "jurisdiccion": ["nacional"],
+      "uso": "Cuando se retuvo la licencia con vicios formales",
+      "campos_obligatorios": [
+        "tribunal", "nombre", "dni", "numero_expediente", "numero_licencia"
+      ],
+      "cuerpo": "SEÑOR JUEZ DE FALTAS\nExpediente N° {{numero_expediente}}\n\n{{nombre}}, DNI {{dni}}, me presento y digo:\n\nOBJETO: Demanda de amparo — Retención ilegal de licencia de conducir\n\nI. FUNDAMENTO\nArt. 72 L. 24.449: la retención de licencia es medida cautelar excepcional con plazos.\nArt. 72 bis L. 24.449: Boleta de Citación debe contener datos del juzgado, plazo de comparecencia (30 días corridos, prorrogables hasta 60, nunca más de 90), y consecuencias.\nArt. 72 último párrafo: si no se presenta en 90 días corridos, se destruye la licencia.\n\nII. VICIOS A VERIFICAR\n{{vicios_verificados}}\n\nIII. FUNDAMENTO JURÍDICO\nLa retención sin cumplimiento del Art. 72 bis = medida arbitraria vulneratoria del debido proceso y derecho a circular (Art. 14 bis CN).\n\nIV. PETITORIO\na) Tenga por presentada la demanda de amparo.\nb) Conceda medida cautelar de no innovar.\nc) Ordene la inmediata restitución de la licencia N° {{numero_licencia}}.\nd) Declare la nulidad de la retención por vicios formales.\ne) Costas a la actora.\n\n{{lugar_fecha}} — {{firma_letrado}}"
+    },
+    {
+      "id": "telegrama_intimacion",
+      "codigo": "H",
+      "titulo": "Telegrama Colacionado de Intimación",
+      "jurisdiccion": ["nacional"],
+      "uso": "Intimación formal a organismo",
+      "campos_obligatorios": [
+        "organismo", "direccion_organismo", "nombre_remitente", "dni",
+        "domicilio", "dias_plazo", "numero_acta", "fecha_acta"
+      ],
+      "cuerpo": "TELEGRAMA COLACIONADO (Correo Argentino con constancia / TCL)\n\nDestinatario: {{organismo}}\nDirección: {{direccion_organismo}}\n\n---\n\n{{nombre_remitente}}, DNI {{dni}}, domicilio {{domicilio}}, intima a ese organismo para que en el plazo de {{dias_plazo}} días hábiles:\n\n1. Proceda a declarar la prescripción del Acta N° {{numero_acta}} de fecha {{fecha_acta}}, conforme Art. 89 Ley 24.449 / normativa local aplicable.\n2. Cese en los bloqueos de renovación de licencia por deuda prescripta.\n3. {{tercer_punto}}\n\nCaso contrario se iniciarán las acciones legales que correspondan, con expresa reserva de daños y perjuicios.\n\n{{lugar_fecha}} — {{firma}}\n\n---\nNOTA AL LETRADO: Conservar el duplicado con número de envío y constancia de entrega."
+    },
+    {
+      "id": "apelacion_pba",
+      "codigo": "I",
+      "titulo": "Recurso de Apelación Judicial PBA",
+      "jurisdiccion": "pba",
+      "plazo": { "dias": 5, "tipo": "habiles", "art": "Art. 41 L. 13.927" },
+      "uso": "Apelación contra resolución condenatoria (debe fundarse en el mismo escrito)",
+      "campos_obligatorios": [
+        "encabezado_juzgado", "numero_expediente", "caratula", "nombre",
+        "dni", "matricula", "domicilio_procesal", "email", "fecha_resolucion"
+      ],
+      "cuerpo": "{{encabezado_juzgado}}\nExpediente N° {{numero_expediente}} — {{caratula}}\n\n{{nombre}}, DNI {{dni}}, abogado/a MP {{matricula}}, con domicilio procesal en {{domicilio_procesal}}, constituyendo domicilio electrónico en {{email}}, en la causa {{caratula}}, me presento y digo:\n\nI. OBJETO\nQue dentro del plazo de 5 (cinco) días hábiles (Art. 41 Ley 13.927 PBA), interpongo RECURSO DE APELACIÓN contra la resolución del {{fecha_resolucion}}, dictada por el Juzgado Administrativo interviniente, que {{descripcion_resolucion}}.\n\nII. AGRAVIOS\n1. {{primer_agravio}}\n2. {{segundo_agravio}}\n3. Nulidad del acta por defecto formal (Art. 3 L. 13.927).\n\nIII. DERECHO\n- Art. 18 CN (defensa en juicio)\n- Arts. 38-41 L. 13.927 (recurso de apelación)\n- Jurisprudencia verificada (SOLO si se tiene acceso al fallo)\n\nIV. PETITORIO\n1. Se tenga por interpuesto el recurso en término.\n2. Se eleven las actuaciones al tribunal de alzada.\n3. Oportunamente se REVOQUE la resolución recurrida y se ARCHIVE / ABSUELVA.\n\n{{lugar_fecha}} — {{firma_letrado}}\n\nNOTA: Los recursos deben fundarse en el mismo escrito de interposición (Art. 40 L. 13.927). Si no se funda, queda desierto."
+    }
+  ]
+}
