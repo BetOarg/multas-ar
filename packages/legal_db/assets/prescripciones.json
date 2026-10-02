@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "last_updated": "2026-06-28",
+    "fundamento_principal": "Arts. 88 y 89 Ley 24.449"
+  },
+  "plazos": {
+    "leve": { "anios": 2, "art": "Art. 89 inc. a L. 24.449" },
+    "grave": { "anios": 5, "art": "Art. 89 inc. b L. 24.449" },
+    "gravisima": { "anios": 5, "art": "Art. 89 inc. b L. 24.449" }
+  },
+  "computo": {
+    "desde": "fecha_hecho",
+    "nota": "El plazo corre desde la comisión del hecho, NO desde la notificación.",
+    "fundamento": "Art. 89 L. 24.449"
+  },
+  "interrupciones": {
+    "fundamento": "Art. 89 último párrafo L. 24.449",
+    "efecto": "reinicia_plazo_completo",
+    "causales": [
+      {
+        "id": "nueva_falta_grave",
+        "nombre": "Comisión de nueva falta grave",
+        "descripcion": "Una nueva falta grave cometida por el mismo infractor interrumpe la prescripción.",
+        "efecto_temporal": "reinicia_desde_fecha_nueva_falta"
+      },
+      {
+        "id": "secuela_juicio_contravencional",
+        "nombre": "Secuela del juicio contravencional",
+        "descripcion": "Mientras el juicio contravencional esté activo, la prescripción se interrumpe continuamente.",
+        "efecto_temporal": "interrupcion_continua_mientras_activo"
+      },
+      {
+        "id": "secuela_juicio_ejecutivo",
+        "nombre": "Secuela del juicio ejecutivo",
+        "descripcion": "Un juicio ejecutivo en trámite interrumpe la prescripción.",
+        "efecto_temporal": "interrupcion_continua_mientras_activo"
+      },
+      {
+        "id": "secuela_juicio_judicial",
+        "nombre": "Secuela del juicio judicial",
+        "descripcion": "Un juicio judicial en trámite interrumpe la prescripción.",
+        "efecto_temporal": "interrupcion_continua_mientras_activo"
+      }
+    ]
+  },
+  "extincion_accion": {
+    "fundamento": "Art. 88 L. 24.449",
+    "causales": [
+      { "id": "muerte_imputado", "nombre": "Muerte del imputado" },
+      { "id": "indulto_conmutacion", "nombre": "Indulto o conmutación" },
+      { "id": "prescripcion", "nombre": "Prescripción" }
+    ]
+  },
+  "reglas_negocio": [
+    "Interrupción solo válida si ocurre ANTES del vencimiento del plazo actual.",
+    "No acumulación de plazos: cada interrupción reinicia desde cero.",
+    "Juicio en trámite = interrupción continua mientras esté activo.",
+    "Nueva falta grave = interrupción puntual desde la fecha exacta.",
+    "Extinción es irreversible: una vez extinguida, no hay resurrección de la acción.",
+    "Manejo de años bisiestos: 29 de febrero → 28 de febrero en año no bisiesto."
+  ]
+}
