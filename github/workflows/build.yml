@@ -1,0 +1,109 @@
+name: Build
+
+on:
+  # Solo cuando se crea un tag tipo v0.1.0
+  push:
+    tags:
+      - "v*.*.*"
+  # O manualmente desde GitHub
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Platform to build"
+        required: true
+        default: "android"
+        type: choice
+        options:
+          - android
+          - ios
+          - both
+
+env:
+  FLUTTER_VERSION: "3.24.5"
+
+jobs:
+  build-android:
+    name: Build Android AAB
+    runs-on: ubuntu-latest
+    if: github.event.inputs.platform != 'ios'
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Install Melos
+        run: dart pub global activate melos
+
+      - name: Bootstrap
+        run: melos bootstrap
+
+      - name: Generate code
+        run: melos run gen:all
+        continue-on-error: true
+
+      - name: Build AAB
+        run: melos run build:android
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab
+          path: apps/mobile/build/app/outputs/bundle/release/*.aab
+          retention-days: 30
+
+  build-ios:
+    name: Build iOS IPA
+    runs-on: macos-latest
+    if: github.event.inputs.platform != 'android'
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Install Melos
+        run: dart pub global activate melos
+
+      - name: Bootstrap
+        run: melos bootstrap
+
+      - name: Generate code
+        run: melos run gen:all
+        continue-on-error: true
+
+      - name: Pod install
+        run: cd apps/mobile/ios && pod install
+        continue-on-error: true
+
+      - name: Build IPA (sin firma)
+        run: |
+          cd apps/mobile
+          flutter build ios --release --no-codesign
+
+      - name: Upload iOS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: apps/mobile/build/ios/iphoneos/*.app
+          retention-days: 30
