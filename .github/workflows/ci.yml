@@ -1,3 +1,4 @@
+cat << 'EOF' > .github/workflows/ci.yml
 name: CI
 
 on:
@@ -5,21 +6,17 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
-  workflow_dispatch:  # permite correrlo manualmente desde GitHub
+  workflow_dispatch:
 
-# Cancela workflows previos del mismo branch/PR si hay uno nuevo
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 env:
   FLUTTER_VERSION: "3.24.5"
-  MELOS_VERSION: "6.2.0"
+  MELOS_VERSION: "8.9.0"
 
 jobs:
-  # ============================================================
-  # JOB 1: Setup (bootstrap del monorepo)
-  # ============================================================
   setup:
     name: Setup
     runs-on: ubuntu-latest
@@ -48,7 +45,6 @@ jobs:
       - name: Melos Bootstrap
         run: melos bootstrap
 
-      # Guarda el estado del bootstrap para reusar en otros jobs
       - name: Cache pub packages
         uses: actions/cache@v4
         with:
@@ -60,9 +56,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pub-
 
-  # ============================================================
-  # JOB 2: Analyze (linting estático)
-  # ============================================================
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
@@ -103,14 +96,11 @@ jobs:
 
       - name: Generate code (Drift, freezed, json_serializable)
         run: melos run gen:all
-        continue-on-error: true  # no falla si no hay generadores aún
+        continue-on-error: true
 
       - name: Analyze
         run: melos run analyze
 
-  # ============================================================
-  # JOB 3: Test (unitarios + widget tests)
-  # ============================================================
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -165,9 +155,6 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
-  # ============================================================
-  # JOB 4: Format check
-  # ============================================================
   format:
     name: Format check
     runs-on: ubuntu-latest
@@ -181,4 +168,5 @@ jobs:
         uses: dart-lang/setup-dart@v1
 
       - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed packages apps
+        run: dart format --output=none --set-exit-if-changed .
+EOF
