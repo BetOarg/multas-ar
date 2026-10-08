@@ -47,7 +47,7 @@ jobs:
           melos bootstrap --no-flutter
 
       - name: Cache pub packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.pub-cache
@@ -84,7 +84,7 @@ jobs:
         run: dart pub global activate melos
 
       - name: Restore pub cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.pub-cache
@@ -134,7 +134,7 @@ jobs:
         run: dart pub global activate melos
 
       - name: Restore pub cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.pub-cache
