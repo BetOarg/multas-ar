@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../bloc/casos_bloc.dart';
 import '../../../shared/theme/app_theme.dart';
 import '../../../shared/router/app_router.dart';
@@ -38,8 +39,10 @@ class CasosScreen extends StatelessWidget {
           }
           if (state is CasosError) {
             return Center(
-              child: Text(state.mensaje,
-                  style: const TextStyle(color: AppColors.danger)),
+              child: Text(
+                state.mensaje,
+                style: const TextStyle(color: AppColors.danger),
+              ),
             );
           }
           if (state is CasosVacio) {
@@ -51,17 +54,17 @@ class CasosScreen extends StatelessWidget {
               itemCount: state.casos.length,
               itemBuilder: (_, i) {
                 final caso = state.casos[i];
-                final estadoCfg = _estadoLabel[caso.estadoProcesal] ??
+                final estadoCfg =
+                    _estadoLabel[caso.estadoProcesal] ??
                     ('Desconocido', AppColors.text3);
                 return _CasoCard(
                   caso: caso,
                   estadoLabel: estadoCfg.$1,
                   estadoColor: estadoCfg.$2,
-                  onTap: () =>
-                      ctx.go('/casos/${caso.id}'),
-                  onArchivar: () => ctx
-                      .read<CasosBloc>()
-                      .add(ArchivarCasoEvent(casoId: caso.id)),
+                  onTap: () => ctx.go('/casos/${caso.id}'),
+                  onArchivar: () => ctx.read<CasosBloc>().add(
+                    ArchivarCasoEvent(casoId: caso.id),
+                  ),
                 );
               },
             );
@@ -73,8 +76,10 @@ class CasosScreen extends StatelessWidget {
         onPressed: () => context.go(AppRouter.analisis),
         backgroundColor: AppColors.indigo,
         icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text('Nuevo caso',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+        label: const Text(
+          'Nuevo caso',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+        ),
       ),
     );
   }
@@ -92,23 +97,25 @@ class CasosScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Filtrar por estado',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Filtrar por estado',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 14),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: _estadoLabel.entries
-                  .map((e) => FilterChip(
-                        label: Text(e.value.$1),
-                        selected: false,
-                        onSelected: (_) => Navigator.pop(context),
-                        selectedColor: e.value.$2.withOpacity(0.2),
-                        labelStyle: TextStyle(
-                            color: e.value.$2, fontSize: 12),
-                        side: BorderSide(
-                            color: e.value.$2.withOpacity(0.4)),
-                      ))
+                  .map(
+                    (e) => FilterChip(
+                      label: Text(e.value.$1),
+                      selected: false,
+                      onSelected: (_) => Navigator.pop(context),
+                      selectedColor: e.value.$2.withOpacity(0.2),
+                      labelStyle: TextStyle(color: e.value.$2, fontSize: 12),
+                      side: BorderSide(color: e.value.$2.withOpacity(0.4)),
+                    ),
+                  )
                   .toList(),
             ),
             const SizedBox(height: 20),
@@ -163,12 +170,13 @@ class _CasoCard extends StatelessWidget {
                   // Badge estado
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 4),
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: estadoColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                          color: estadoColor.withOpacity(0.4)),
+                      border: Border.all(color: estadoColor.withOpacity(0.4)),
                     ),
                     child: Text(
                       estadoLabel,
@@ -183,8 +191,11 @@ class _CasoCard extends StatelessWidget {
                   // Menú
                   PopupMenuButton<String>(
                     color: AppColors.surface2,
-                    icon: const Icon(Icons.more_vert,
-                        size: 18, color: AppColors.text3),
+                    icon: const Icon(
+                      Icons.more_vert,
+                      size: 18,
+                      color: AppColors.text3,
+                    ),
                     onSelected: (v) {
                       if (v == 'archivar') onArchivar();
                     },
@@ -193,13 +204,19 @@ class _CasoCard extends StatelessWidget {
                         value: 'archivar',
                         child: Row(
                           children: [
-                            Icon(Icons.archive_outlined,
-                                size: 16, color: AppColors.text2),
+                            Icon(
+                              Icons.archive_outlined,
+                              size: 16,
+                              color: AppColors.text2,
+                            ),
                             SizedBox(width: 8),
-                            Text('Archivar',
-                                style: TextStyle(
-                                    color: AppColors.text2,
-                                    fontSize: 13)),
+                            Text(
+                              'Archivar',
+                              style: TextStyle(
+                                color: AppColors.text2,
+                                fontSize: 13,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -218,8 +235,7 @@ class _CasoCard extends StatelessWidget {
                   if (caso.patente != null)
                     _dato(Icons.directions_car_outlined, caso.patente),
                   if (caso.tipoFalta != null)
-                    _dato(Icons.gavel_outlined,
-                        'Falta ${caso.tipoFalta}'),
+                    _dato(Icons.gavel_outlined, 'Falta ${caso.tipoFalta}'),
                 ],
               ),
               const SizedBox(height: 6),
@@ -237,16 +253,14 @@ class _CasoCard extends StatelessWidget {
     );
   }
 
-  Widget _dato(IconData icon, String? text,
-      {Color color = AppColors.text2}) {
+  Widget _dato(IconData icon, String? text, {Color color = AppColors.text2}) {
     if (text == null) return const SizedBox.shrink();
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: 13, color: color),
         const SizedBox(width: 4),
-        Text(text,
-            style: TextStyle(fontSize: 12, color: color)),
+        Text(text, style: TextStyle(fontSize: 12, color: color)),
       ],
     );
   }

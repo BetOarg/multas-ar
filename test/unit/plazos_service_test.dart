@@ -13,19 +13,19 @@ void main() {
 
   // Feriados nacionales 2026 relevantes para los tests
   final feriadosTest = [
-    DateTime(2026, 1, 1),   // Año Nuevo
-    DateTime(2026, 2, 16),  // Carnaval
-    DateTime(2026, 2, 17),  // Carnaval
-    DateTime(2026, 3, 24),  // Día de la Memoria
-    DateTime(2026, 4, 2),   // Malvinas
-    DateTime(2026, 4, 3),   // Viernes Santo
-    DateTime(2026, 5, 1),   // Día del Trabajo
-    DateTime(2026, 5, 25),  // Revolución de Mayo
-    DateTime(2026, 7, 9),   // Independencia
-    DateTime(2026, 8, 17),  // Gral. San Martín
+    DateTime(2026, 1, 1), // Año Nuevo
+    DateTime(2026, 2, 16), // Carnaval
+    DateTime(2026, 2, 17), // Carnaval
+    DateTime(2026, 3, 24), // Día de la Memoria
+    DateTime(2026, 4, 2), // Malvinas
+    DateTime(2026, 4, 3), // Viernes Santo
+    DateTime(2026, 5, 1), // Día del Trabajo
+    DateTime(2026, 5, 25), // Revolución de Mayo
+    DateTime(2026, 7, 9), // Independencia
+    DateTime(2026, 8, 17), // Gral. San Martín
     DateTime(2026, 10, 12), // Diversidad Cultural
     DateTime(2026, 11, 20), // Soberanía Nacional
-    DateTime(2026, 12, 8),  // Inmaculada Concepción
+    DateTime(2026, 12, 8), // Inmaculada Concepción
     DateTime(2026, 12, 25), // Navidad
   ];
 
@@ -58,10 +58,15 @@ void main() {
       final resultado = svc.sumarDiasHabilesAdmin(inicio, 45);
       expect(resultado.isAfter(inicio), true);
       // Verificar que no cae en feriado
-      expect(feriadosTest.any((f) =>
-        f.year == resultado.year &&
-        f.month == resultado.month &&
-        f.day == resultado.day), false);
+      expect(
+        feriadosTest.any(
+          (f) =>
+              f.year == resultado.year &&
+              f.month == resultado.month &&
+              f.day == resultado.day,
+        ),
+        false,
+      );
     });
 
     test('no cuenta sábados ni domingos', () {
@@ -104,7 +109,10 @@ void main() {
     test('prescripción CABA — 5 años', () {
       final hecho = DateTime(2021, 6, 15);
       final prescribe = svc.calcularPrescripcion(
-          hecho, Jurisdiccion.caba, TipoFalta.leve);
+        hecho,
+        Jurisdiccion.caba,
+        TipoFalta.leve,
+      );
       expect(prescribe.year, 2026);
       expect(prescribe.month, 6);
       expect(prescribe.day, 15);
@@ -113,7 +121,10 @@ void main() {
     test('prescripción PBA leve — 2 años (Ley 24.449)', () {
       final hecho = DateTime(2024, 3, 10);
       final prescribe = svc.calcularPrescripcion(
-          hecho, Jurisdiccion.pba, TipoFalta.leve);
+        hecho,
+        Jurisdiccion.pba,
+        TipoFalta.leve,
+      );
       expect(prescribe.year, 2026);
       expect(prescribe.month, 3);
       expect(prescribe.day, 10);
@@ -122,7 +133,10 @@ void main() {
     test('prescripción Mendoza grave — 3 años', () {
       final hecho = DateTime(2023, 8, 20);
       final prescribe = svc.calcularPrescripcion(
-          hecho, Jurisdiccion.mendoza, TipoFalta.grave);
+        hecho,
+        Jurisdiccion.mendoza,
+        TipoFalta.grave,
+      );
       expect(prescribe.year, 2026);
       expect(prescribe.month, 8);
       expect(prescribe.day, 20);
@@ -131,7 +145,10 @@ void main() {
     test('prescripción Mendoza gravísima — 4 años', () {
       final hecho = DateTime(2022, 11, 5);
       final prescribe = svc.calcularPrescripcion(
-          hecho, Jurisdiccion.mendoza, TipoFalta.gravisima);
+        hecho,
+        Jurisdiccion.mendoza,
+        TipoFalta.gravisima,
+      );
       expect(prescribe.year, 2026);
       expect(prescribe.month, 11);
       expect(prescribe.day, 5);

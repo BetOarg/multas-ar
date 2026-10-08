@@ -1,7 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../bloc/analisis_bloc.dart';
 import '../../../shared/theme/app_theme.dart';
 import '../../../shared/widgets/legal_alert_widget.dart';
@@ -34,19 +36,37 @@ class _AnalisisScreenState extends State<AnalisisScreen> {
   bool _agotamientoVia = false;
 
   static const _jurisdicciones = [
-    'CABA', 'PBA', 'Córdoba', 'Santa Fe',
-    'Mendoza', 'Tucumán', 'Salta', 'Neuquén', 'nacional', 'otra',
+    'CABA',
+    'PBA',
+    'Córdoba',
+    'Santa Fe',
+    'Mendoza',
+    'Tucumán',
+    'Salta',
+    'Neuquén',
+    'nacional',
+    'otra',
   ];
   static const _tiposFalta = ['leve', 'grave', 'gravisima'];
   static const _estadosProc = [
-    'admin', 'descargo', 'condenado',
-    'apelacion', 'firme', 'apremio',
+    'admin',
+    'descargo',
+    'condenado',
+    'apelacion',
+    'firme',
+    'apremio',
   ];
   static const _erroresOpciones = [
-    'Patente errónea', 'Fecha incorrecta', 'Hora incorrecta',
-    'Lugar no coincide', 'Norma mal citada', 'Falta firma del agente',
-    'Datos del titular incorrectos', 'Falta identificación del agente',
-    'Señalización deficiente', 'Fotomulta sin notificación válida',
+    'Patente errónea',
+    'Fecha incorrecta',
+    'Hora incorrecta',
+    'Lugar no coincide',
+    'Norma mal citada',
+    'Falta firma del agente',
+    'Datos del titular incorrectos',
+    'Falta identificación del agente',
+    'Señalización deficiente',
+    'Fotomulta sin notificación válida',
   ];
 
   @override
@@ -58,7 +78,8 @@ class _AnalisisScreenState extends State<AnalisisScreen> {
           IconButton(
             icon: const Icon(Icons.refresh_outlined),
             tooltip: 'Nuevo análisis',
-            onPressed: () => context.read<AnalisisBloc>().add(const LimpiarAnalisisEvent()),
+            onPressed: () =>
+                context.read<AnalisisBloc>().add(const LimpiarAnalisisEvent()),
           ),
         ],
       ),
@@ -93,8 +114,9 @@ class _AnalisisScreenState extends State<AnalisisScreen> {
               // ── Zona de carga de imagen ────────────────────
               _UploadZone(
                 isLoading: state is AnalisisOcrEnProceso,
-                onImageSelected: (file) => ctx.read<AnalisisBloc>()
-                    .add(AnalizarImagenEvent(imagen: file)),
+                onImageSelected: (file) => ctx.read<AnalisisBloc>().add(
+                  AnalizarImagenEvent(imagen: file),
+                ),
               ),
 
               // ── Resultado OCR ──────────────────────────────
@@ -148,17 +170,17 @@ class _AnalisisScreenState extends State<AnalisisScreen> {
                     onPressed: _jurisdiccion == null
                         ? null
                         : () => ctx.read<AnalisisBloc>().add(
-                              AnalizarFormularioEvent(
-                                jurisdiccion: _jurisdiccion!,
-                                fechaNotificacion: _fechaNotificacion,
-                                tipoFalta: _tipoFalta,
-                                erroresFormales: _erroresFormales,
-                                titularEsConductor: _titularEsConductor,
-                                estadoProcesal: _estadoProcesal,
-                                vaJudicial: _vaJudicial,
-                                agotamientoVia: _agotamientoVia,
-                              ),
+                            AnalizarFormularioEvent(
+                              jurisdiccion: _jurisdiccion!,
+                              fechaNotificacion: _fechaNotificacion,
+                              tipoFalta: _tipoFalta,
+                              erroresFormales: _erroresFormales,
+                              titularEsConductor: _titularEsConductor,
+                              estadoProcesal: _estadoProcesal,
+                              vaJudicial: _vaJudicial,
+                              agotamientoVia: _agotamientoVia,
                             ),
+                          ),
                   ),
                 ),
 
@@ -190,8 +212,10 @@ class _UploadZone extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('📎  Subir multa / fotomulta',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              '📎  Subir multa / fotomulta',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -201,8 +225,7 @@ class _UploadZone extends StatelessWidget {
                     label: const Text('Tomar foto'),
                     onPressed: isLoading
                         ? null
-                        : () => _seleccionarImagen(
-                            context, ImageSource.camera),
+                        : () => _seleccionarImagen(context, ImageSource.camera),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -212,8 +235,8 @@ class _UploadZone extends StatelessWidget {
                     label: const Text('Galería'),
                     onPressed: isLoading
                         ? null
-                        : () => _seleccionarImagen(
-                            context, ImageSource.gallery),
+                        : () =>
+                              _seleccionarImagen(context, ImageSource.gallery),
                   ),
                 ),
               ],
@@ -223,12 +246,15 @@ class _UploadZone extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(
-                    width: 18, height: 18,
+                    width: 18,
+                    height: 18,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   ),
                   const SizedBox(width: 10),
-                  Text('Analizando con IA...',
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    'Analizando con IA...',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
               ),
             ],
@@ -244,7 +270,9 @@ class _UploadZone extends StatelessWidget {
   }
 
   Future<void> _seleccionarImagen(
-      BuildContext context, ImageSource source) async {
+    BuildContext context,
+    ImageSource source,
+  ) async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(
       source: source,
@@ -272,11 +300,11 @@ class _OcrResultadoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('📋  Datos extraídos por IA',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: AppColors.indigoLight)),
+            Text(
+              '📋  Datos extraídos por IA',
+              style: Theme.of(context).textTheme.titleMedium
+                  ?.copyWith(color: AppColors.indigoLight),
+            ),
             const SizedBox(height: 10),
             _campo('N° de acta', acta.numeroActa),
             _campo('Patente', acta.patente),
@@ -301,12 +329,15 @@ class _OcrResultadoCard extends StatelessWidget {
         children: [
           SizedBox(
             width: 120,
-            child: Text(label,
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.text3,
-                    letterSpacing: 0.05)),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: AppColors.text3,
+                letterSpacing: 0.05,
+              ),
+            ),
           ),
           Expanded(
             child: Text(
@@ -381,8 +412,10 @@ class _FormularioCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('📋  Datos del acta',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                '📋  Datos del acta',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 16),
 
               // Jurisdicción
@@ -433,9 +466,12 @@ class _FormularioCard extends StatelessWidget {
                 value: tipoFalta,
                 decoration: const InputDecoration(hintText: 'Sin determinar'),
                 items: tiposFalta
-                    .map((t) => DropdownMenuItem(
+                    .map(
+                      (t) => DropdownMenuItem(
                         value: t,
-                        child: Text(t[0].toUpperCase() + t.substring(1))))
+                        child: Text(t[0].toUpperCase() + t.substring(1)),
+                      ),
+                    )
                     .toList(),
                 onChanged: onTipoFaltaChanged,
               ),
@@ -446,29 +482,53 @@ class _FormularioCard extends StatelessWidget {
               DropdownButtonFormField<String>(
                 value: estadoProcesal,
                 decoration: const InputDecoration(hintText: 'Sin determinar'),
-                items: {
-                  'admin': 'Instancia administrativa — sin descargo',
-                  'descargo': 'Descargo presentado — esperando resolución',
-                  'condenado': 'Resolución condenatoria — plazo apelación',
-                  'apelacion': 'En apelación judicial',
-                  'firme': 'Resolución firme',
-                  'apremio': 'Juicio de apremio iniciado',
-                }.entries.map((e) => DropdownMenuItem(
-                    value: e.key, child: Text(e.value, overflow: TextOverflow.ellipsis))).toList(),
+                items:
+                    {
+                          'admin': 'Instancia administrativa — sin descargo',
+                          'descargo':
+                              'Descargo presentado — esperando resolución',
+                          'condenado':
+                              'Resolución condenatoria — plazo apelación',
+                          'apelacion': 'En apelación judicial',
+                          'firme': 'Resolución firme',
+                          'apremio': 'Juicio de apremio iniciado',
+                        }.entries
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e.key,
+                            child: Text(
+                              e.value,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(),
                 onChanged: onEstadoProcChanged,
               ),
               const SizedBox(height: 14),
 
               // ¿Titular es conductor?
               _label('¿El titular es quien conducía?'),
-              Wrap(spacing: 8, children: [
-                _opcionChip('Sí', titularEsConductor == true,
-                    () => onTitularChanged(true)),
-                _opcionChip('No — otro conductor', titularEsConductor == false,
-                    () => onTitularChanged(false)),
-                _opcionChip('Vehículo vendido', titularEsConductor == null,
-                    () => onTitularChanged(null)),
-              ]),
+              Wrap(
+                spacing: 8,
+                children: [
+                  _opcionChip(
+                    'Sí',
+                    titularEsConductor == true,
+                    () => onTitularChanged(true),
+                  ),
+                  _opcionChip(
+                    'No — otro conductor',
+                    titularEsConductor == false,
+                    () => onTitularChanged(false),
+                  ),
+                  _opcionChip(
+                    'Vehículo vendido',
+                    titularEsConductor == null,
+                    () => onTitularChanged(null),
+                  ),
+                ],
+              ),
               const SizedBox(height: 14),
 
               // Errores formales
@@ -500,8 +560,10 @@ class _FormularioCard extends StatelessWidget {
               SwitchListTile(
                 value: vaJudicial,
                 onChanged: onVaJudicialChanged,
-                title: const Text('¿Planificás la vía judicial?',
-                    style: TextStyle(fontSize: 13, color: AppColors.text)),
+                title: const Text(
+                  '¿Planificás la vía judicial?',
+                  style: TextStyle(fontSize: 13, color: AppColors.text),
+                ),
                 activeColor: AppColors.indigo,
                 contentPadding: EdgeInsets.zero,
               ),
@@ -509,12 +571,14 @@ class _FormularioCard extends StatelessWidget {
                 SwitchListTile(
                   value: agotamientoVia,
                   onChanged: onAgotamientoChanged,
-                  title: const Text('¿Se agotó la vía administrativa?',
-                      style: TextStyle(fontSize: 13, color: AppColors.text)),
+                  title: const Text(
+                    '¿Se agotó la vía administrativa?',
+                    style: TextStyle(fontSize: 13, color: AppColors.text),
+                  ),
                   subtitle: const Text(
-                      'Generalmente requerido antes de acudir a la justicia.',
-                      style:
-                          TextStyle(fontSize: 11, color: AppColors.text3)),
+                    'Generalmente requerido antes de acudir a la justicia.',
+                    style: TextStyle(fontSize: 11, color: AppColors.text3),
+                  ),
                   activeColor: AppColors.success,
                   contentPadding: EdgeInsets.zero,
                 ),
@@ -526,27 +590,31 @@ class _FormularioCard extends StatelessWidget {
   }
 
   Widget _label(String text) => Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Text(text,
-            style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: AppColors.text2,
-                letterSpacing: 0.07)),
-      );
+    padding: const EdgeInsets.only(bottom: 6),
+    child: Text(
+      text,
+      style: const TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+        color: AppColors.text2,
+        letterSpacing: 0.07,
+      ),
+    ),
+  );
 
   Widget _opcionChip(String label, bool activo, VoidCallback onTap) =>
       ActionChip(
         label: Text(label),
         onPressed: onTap,
-        backgroundColor:
-            activo ? AppColors.indigo.withOpacity(0.2) : AppColors.surface3,
-        side: BorderSide(
-            color: activo ? AppColors.indigo : AppColors.border),
+        backgroundColor: activo
+            ? AppColors.indigo.withOpacity(0.2)
+            : AppColors.surface3,
+        side: BorderSide(color: activo ? AppColors.indigo : AppColors.border),
         labelStyle: TextStyle(
-            color: activo ? AppColors.indigoLight : AppColors.text2,
-            fontSize: 12,
-            fontWeight: FontWeight.w600),
+          color: activo ? AppColors.indigoLight : AppColors.text2,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
       );
 }
 
@@ -562,11 +630,11 @@ class _ResultadoSection extends StatelessWidget {
       children: [
         // Campos faltantes
         if (resultado.faltantes.isNotEmpty) ...[
-          Text('⚠️  Información faltante',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(color: AppColors.danger)),
+          Text(
+            '⚠️  Información faltante',
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(color: AppColors.danger),
+          ),
           const SizedBox(height: 8),
           ...resultado.faltantes
               .map<Widget>((f) => CampoFaltanteWidget(faltante: f))
@@ -577,68 +645,80 @@ class _ResultadoSection extends StatelessWidget {
         // Alertas
         if (resultado.alertas.isNotEmpty) ...[
           ...resultado.alertas
-              .map<Widget>((a) => LegalAlertWidget(
-                    tipo: a.tipo,
-                    mensaje: a.mensaje,
-                    norma: a.norma,
-                  ))
+              .map<Widget>(
+                (a) => LegalAlertWidget(
+                  tipo: a.tipo,
+                  mensaje: a.mensaje,
+                  norma: a.norma,
+                ),
+              )
               .toList(),
           const SizedBox(height: 12),
         ],
 
         // Oportunidades defensivas
         if (resultado.oportunidades.isNotEmpty) ...[
-          Text('🎯  Oportunidades defensivas',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(color: AppColors.success)),
+          Text(
+            '🎯  Oportunidades defensivas',
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(color: AppColors.success),
+          ),
           const SizedBox(height: 8),
           ...resultado.oportunidades
-              .map<Widget>((o) => Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
-                          color: AppColors.success.withOpacity(0.3)),
-                    ),
-                    color:
-                        AppColors.success.withOpacity(0.08),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                        children: [
-                          Text('✅  ${o.titulo}',
+              .map<Widget>(
+                (o) => Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: AppColors.success.withOpacity(0.3)),
+                  ),
+                  color: AppColors.success.withOpacity(0.08),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '✅  ${o.titulo}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.success,
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          o.detalle,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.text2,
+                          ),
+                        ),
+                        if (o.normaAplicable != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              o.normaAplicable!,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.success,
-                                  fontSize: 13)),
-                          const SizedBox(height: 4),
-                          Text(o.detalle,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  color: AppColors.text2)),
-                          if (o.normaAplicable != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Text(o.normaAplicable!,
-                                  style: const TextStyle(
-                                      fontSize: 11,
-                                      color: AppColors.indigoLight)),
+                                fontSize: 11,
+                                color: AppColors.indigoLight,
+                              ),
                             ),
-                        ],
-                      ),
+                          ),
+                      ],
                     ),
-                  ))
+                  ),
+                ),
+              )
               .toList(),
           const SizedBox(height: 12),
         ],
 
         // Plazos
         if (resultado.plazos.isNotEmpty) ...[
-          Text('📅  Plazos calculados',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            '📅  Plazos calculados',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 4),
           const LegalAlertWidget(
             tipo: TipoAlerta.advertencia,

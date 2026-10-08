@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
+
 import '../bloc/escritos_bloc.dart';
 import '../../../shared/theme/app_theme.dart';
 import '../../../shared/widgets/legal_alert_widget.dart';
@@ -18,8 +19,11 @@ class EscritosScreen extends StatelessWidget {
         builder: (ctx, state) => Column(
           children: [
             // ── Grid de modelos ─────────────────────────────
-            _ModelosGrid(modeloActivoId:
-                state is EscritoSeleccionado ? state.modelo.id : null),
+            _ModelosGrid(
+              modeloActivoId: state is EscritoSeleccionado
+                  ? state.modelo.id
+                  : null,
+            ),
 
             // ── Editor del modelo seleccionado ──────────────
             if (state is EscritoSeleccionado)
@@ -30,8 +34,7 @@ class EscritosScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('📄',
-                          style: TextStyle(fontSize: 48)),
+                      const Text('📄', style: TextStyle(fontSize: 48)),
                       const SizedBox(height: 12),
                       Text(
                         'Seleccioná un modelo para comenzar',
@@ -66,9 +69,9 @@ class _ModelosGrid extends StatelessWidget {
           final m = EscritosBloc.modelos[i];
           final activo = m.id == modeloActivoId;
           return GestureDetector(
-            onTap: () => ctx
-                .read<EscritosBloc>()
-                .add(SeleccionarModeloEvent(modeloId: m.id)),
+            onTap: () => ctx.read<EscritosBloc>().add(
+              SeleccionarModeloEvent(modeloId: m.id),
+            ),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
               width: 110,
@@ -79,9 +82,7 @@ class _ModelosGrid extends StatelessWidget {
                     ? AppColors.indigo.withOpacity(0.2)
                     : AppColors.surface3,
                 border: Border.all(
-                  color: activo
-                      ? AppColors.indigo
-                      : AppColors.border,
+                  color: activo ? AppColors.indigo : AppColors.border,
                   width: activo ? 1.5 : 1,
                 ),
                 borderRadius: BorderRadius.circular(12),
@@ -90,16 +91,13 @@ class _ModelosGrid extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(m.icon,
-                      style: const TextStyle(fontSize: 20)),
+                  Text(m.icon, style: const TextStyle(fontSize: 20)),
                   Text(
                     m.titulo,
                     style: TextStyle(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
-                      color: activo
-                          ? AppColors.indigoLight
-                          : AppColors.text,
+                      color: activo ? AppColors.indigoLight : AppColors.text,
                       height: 1.3,
                     ),
                     maxLines: 2,
@@ -139,8 +137,10 @@ class _EscritoEditor extends StatelessWidget {
           // Encabezado
           Row(
             children: [
-              Text('${modelo.icon}  ${modelo.titulo}',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                '${modelo.icon}  ${modelo.titulo}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const Spacer(),
               // Acciones
               _accionIcon(
@@ -175,10 +175,7 @@ class _EscritoEditor extends StatelessWidget {
           const SizedBox(height: 12),
 
           // Nota de advertencia
-          LegalAlertWidget(
-            tipo: TipoAlerta.advertencia,
-            mensaje: modelo.nota,
-          ),
+          LegalAlertWidget(tipo: TipoAlerta.advertencia, mensaje: modelo.nota),
 
           // Campos obligatorios
           _CamposObligatorios(campos: modelo.camposObligatorios),
@@ -208,7 +205,8 @@ class _EscritoEditor extends StatelessWidget {
           // Advertencia final
           const LegalAlertWidget(
             tipo: TipoAlerta.info,
-            mensaje: 'Completar todos los campos [EN MAYÚSCULAS] antes de presentar. '
+            mensaje:
+                'Completar todos los campos [EN MAYÚSCULAS] antes de presentar. '
                 'Verificar vigencia normativa al momento de uso. '
                 'No citar jurisprudencia sin fuente verificada.',
           ),
@@ -228,10 +226,8 @@ class _EscritoEditor extends StatelessWidget {
                 child: OutlinedButton.icon(
                   icon: const Icon(Icons.share_outlined, size: 16),
                   label: const Text('Compartir'),
-                  onPressed: () => Share.share(
-                    modelo.plantilla,
-                    subject: modelo.titulo,
-                  ),
+                  onPressed: () =>
+                      Share.share(modelo.plantilla, subject: modelo.titulo),
                 ),
               ),
             ],
@@ -251,10 +247,12 @@ class _EscritoEditor extends StatelessWidget {
     );
   }
 
-  Widget _accionIcon(BuildContext context,
-      {required IconData icon,
-      required String tooltip,
-      required VoidCallback onTap}) {
+  Widget _accionIcon(
+    BuildContext context, {
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onTap,
+  }) {
     return IconButton(
       icon: Icon(icon, size: 18, color: AppColors.text2),
       tooltip: tooltip,
@@ -287,25 +285,30 @@ class _CamposObligatorios extends StatelessWidget {
           spacing: 6,
           runSpacing: 6,
           children: campos
-              .map((c) => Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: AppColors.warning.withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                          color: AppColors.warning.withOpacity(0.35)),
+              .map(
+                (c) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withOpacity(0.12),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                      color: AppColors.warning.withOpacity(0.35),
                     ),
-                    child: Text(
-                      c,
-                      style: const TextStyle(
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFFFBD38D),
-                        letterSpacing: 0.04,
-                      ),
+                  ),
+                  child: Text(
+                    c,
+                    style: const TextStyle(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFFFBD38D),
+                      letterSpacing: 0.04,
                     ),
-                  ))
+                  ),
+                ),
+              )
               .toList(),
         ),
       ],

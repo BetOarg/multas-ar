@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/casos_bloc.dart';
 import '../../../shared/theme/app_theme.dart';
 import '../../../shared/widgets/legal_alert_widget.dart';
@@ -20,32 +21,33 @@ class CasoDetalleScreen extends StatelessWidget {
           );
         }
 
-        final caso = state.casos
-            .where((c) => c.id == casoId)
-            .firstOrNull;
+        final caso = state.casos.where((c) => c.id == casoId).firstOrNull;
 
         if (caso == null) {
           return Scaffold(
             appBar: AppBar(title: const Text('Caso no encontrado')),
             body: const Center(
-              child: Text('El caso no existe o fue archivado.',
-                  style: TextStyle(color: AppColors.text2)),
+              child: Text(
+                'El caso no existe o fue archivado.',
+                style: TextStyle(color: AppColors.text2),
+              ),
             ),
           );
         }
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(caso.numeroActa != null
-                ? 'Acta N° ${caso.numeroActa}'
-                : 'Caso sin número'),
+            title: Text(
+              caso.numeroActa != null
+                  ? 'Acta N° ${caso.numeroActa}'
+                  : 'Caso sin número',
+            ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.archive_outlined),
                 tooltip: 'Archivar caso',
                 onPressed: () {
-                  ctx.read<CasosBloc>()
-                      .add(ArchivarCasoEvent(casoId: caso.id));
+                  ctx.read<CasosBloc>().add(ArchivarCasoEvent(casoId: caso.id));
                   Navigator.pop(context);
                 },
               ),
@@ -63,8 +65,10 @@ class CasoDetalleScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('📋  Datos del caso',
-                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(
+                          '📋  Datos del caso',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         const Divider(height: 20),
                         _fila('Jurisdicción', caso.jurisdiccion),
                         _fila('Patente', caso.patente),
@@ -76,11 +80,15 @@ class CasoDetalleScreen extends StatelessWidget {
                         if (caso.conductorNombre != null)
                           _fila('Conductor real', caso.conductorNombre),
                         if (caso.fechaNotificacion != null)
-                          _fila('Fecha notificación',
-                              _fmt(caso.fechaNotificacion!)),
+                          _fila(
+                            'Fecha notificación',
+                            _fmt(caso.fechaNotificacion!),
+                          ),
                         if (caso.fechaInfraccion != null)
-                          _fila('Fecha infracción',
-                              _fmt(caso.fechaInfraccion!)),
+                          _fila(
+                            'Fecha infracción',
+                            _fmt(caso.fechaInfraccion!),
+                          ),
                         if (caso.notas != null && caso.notas!.isNotEmpty)
                           _fila('Notas', caso.notas),
                       ],
@@ -113,39 +121,46 @@ class CasoDetalleScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                       side: BorderSide(
-                          color: AppColors.success.withOpacity(0.3)),
+                        color: AppColors.success.withOpacity(0.3),
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('🎯  Errores formales detectados',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(color: AppColors.success)),
+                          Text(
+                            '🎯  Errores formales detectados',
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(color: AppColors.success),
+                          ),
                           const SizedBox(height: 8),
                           ...caso.erroresFormales!
                               .split('|')
-                              .map((e) => Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 4),
-                                    child: Row(
-                                      children: [
-                                        const Icon(Icons.check_circle,
-                                            size: 14,
-                                            color: AppColors.success),
-                                        const SizedBox(width: 6),
-                                        Expanded(
-                                          child: Text(e,
-                                              style: const TextStyle(
-                                                  fontSize: 12.5,
-                                                  color: AppColors.text2)),
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 4),
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.check_circle,
+                                        size: 14,
+                                        color: AppColors.success,
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Expanded(
+                                        child: Text(
+                                          e,
+                                          style: const TextStyle(
+                                            fontSize: 12.5,
+                                            color: AppColors.text2,
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                         ],
                       ),
                     ),
@@ -159,8 +174,10 @@ class CasoDetalleScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('⚡  Acciones',
-                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(
+                          '⚡  Acciones',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         const SizedBox(height: 12),
                         Wrap(
                           spacing: 8,
@@ -220,10 +237,7 @@ class CasoDetalleScreen extends StatelessWidget {
           Expanded(
             child: Text(
               valor,
-              style: const TextStyle(
-                fontSize: 13,
-                color: AppColors.text,
-              ),
+              style: const TextStyle(fontSize: 13, color: AppColors.text),
             ),
           ),
         ],
@@ -231,10 +245,12 @@ class CasoDetalleScreen extends StatelessWidget {
     );
   }
 
-  Widget _accionBtn(BuildContext context,
-      {required IconData icon,
-      required String label,
-      required VoidCallback onTap}) {
+  Widget _accionBtn(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
     return OutlinedButton.icon(
       icon: Icon(icon, size: 15),
       label: Text(label),

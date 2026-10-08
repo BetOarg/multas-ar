@@ -53,10 +53,7 @@ class AnalisisCompletado extends AnalisisState {
   final ActaExtraida? acta;
   final ResultadoAnalisis resultado;
 
-  const AnalisisCompletado({
-    this.acta,
-    required this.resultado,
-  });
+  const AnalisisCompletado({this.acta, required this.resultado});
 
   @override
   List<Object?> get props => [acta, resultado];
@@ -76,10 +73,7 @@ class AnalisisGuardado extends AnalisisState {
   final String casoId;
   final ResultadoAnalisis resultado;
 
-  const AnalisisGuardado({
-    required this.casoId,
-    required this.resultado,
-  });
+  const AnalisisGuardado({required this.casoId, required this.resultado});
 
   @override
   List<Object?> get props => [casoId];

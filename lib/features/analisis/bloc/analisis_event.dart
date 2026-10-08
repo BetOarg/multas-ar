@@ -42,12 +42,12 @@ class AnalizarFormularioEvent extends AnalisisEvent {
 
   @override
   List<Object?> get props => [
-        jurisdiccion,
-        fechaNotificacion,
-        tipoFalta,
-        erroresFormales,
-        estadoProcesal,
-      ];
+    jurisdiccion,
+    fechaNotificacion,
+    tipoFalta,
+    erroresFormales,
+    estadoProcesal,
+  ];
 }
 
 /// Guardar el caso analizado en la base de datos

@@ -36,17 +36,14 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                '⚖️',
-                style: TextStyle(fontSize: 64),
-              ),
+              const Text('⚖️', style: TextStyle(fontSize: 64)),
               const SizedBox(height: 16),
               Text(
                 'Multas AR',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: AppTheme.text,
-                      fontWeight: FontWeight.w800,
-                    ),
+                  color: AppTheme.text,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 8),
               const Text(

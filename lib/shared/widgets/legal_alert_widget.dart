@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_theme.dart';
 import '../../core/services/analisis_service.dart';
 
@@ -93,5 +94,9 @@ class _AlertConfig {
   final Color bg;
   final Color border;
   final String icon;
-  const _AlertConfig({required this.bg, required this.border, required this.icon});
+  const _AlertConfig({
+    required this.bg,
+    required this.border,
+    required this.icon,
+  });
 }

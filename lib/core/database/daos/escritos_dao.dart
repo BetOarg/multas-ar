@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
 import '../tables/tables.dart';
 
@@ -19,8 +20,7 @@ class EscritosDao extends DatabaseAccessor<AppDatabase>
 
   /// Obtener un escrito por ID
   Future<Escrito?> getEscritoPorId(int id) {
-    return (select(escritos)..where((e) => e.id.equals(id)))
-        .getSingleOrNull();
+    return (select(escritos)..where((e) => e.id.equals(id))).getSingleOrNull();
   }
 
   /// Insertar nuevo escrito generado

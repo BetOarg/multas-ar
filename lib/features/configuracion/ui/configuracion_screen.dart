@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import '../../../shared/theme/app_theme.dart';
 import '../../../shared/widgets/legal_alert_widget.dart';
 import '../../../core/services/analisis_service.dart';
@@ -28,8 +29,16 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
   ];
 
   static const _jurisdicciones = [
-    'CABA', 'PBA', 'Córdoba', 'Santa Fe',
-    'Mendoza', 'Tucumán', 'Salta', 'Neuquén', 'Nacional', 'Otra',
+    'CABA',
+    'PBA',
+    'Córdoba',
+    'Santa Fe',
+    'Mendoza',
+    'Tucumán',
+    'Salta',
+    'Neuquén',
+    'Nacional',
+    'Otra',
   ];
 
   @override
@@ -61,7 +70,10 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
     if (_jurPrincipal != null) {
       await _storage.write(key: 'cfg_jur', value: _jurPrincipal!);
     }
-    setState(() { _guardando = false; _guardado = true; });
+    setState(() {
+      _guardando = false;
+      _guardado = true;
+    });
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) setState(() => _guardado = false);
   }
@@ -82,7 +94,6 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ── Perfil ───────────────────────────────────────
             _SectionCard(
               titulo: '👤  Perfil de uso',
@@ -126,7 +137,8 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                     TextField(
                       controller: _nombreCtrl,
                       decoration: const InputDecoration(
-                        hintText: 'Dr./Dra. Nombre Apellido · Estudio Jurídico...',
+                        hintText:
+                            'Dr./Dra. Nombre Apellido · Estudio Jurídico...',
                       ),
                     ),
                     const SizedBox(height: 14),
@@ -148,25 +160,31 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
               child: Column(
                 children: [
                   _InfoTile(
-                      icon: Icons.balance_outlined,
-                      label: 'Versión',
-                      valor: 'MULTAS ARGENTINA PRO v1.0.0'),
+                    icon: Icons.balance_outlined,
+                    label: 'Versión',
+                    valor: 'MULTAS ARGENTINA PRO v1.0.0',
+                  ),
                   _InfoTile(
-                      icon: Icons.gavel_outlined,
-                      label: 'Base normativa',
-                      valor: 'Ley 24.449 · Ley 1217 CABA · Ley 13.927 PBA · Ley 9024 Mendoza'),
+                    icon: Icons.gavel_outlined,
+                    label: 'Base normativa',
+                    valor: 'Ley 24.449 · Ley 1217 CABA · Ley 13.927 PBA · Ley 9024 Mendoza',
+                  ),
                   _InfoTile(
-                      icon: Icons.calendar_today_outlined,
-                      label: 'Feriados',
-                      valor: 'Nacionales 2026 precargados — verificar provinciales'),
+                    icon: Icons.calendar_today_outlined,
+                    label: 'Feriados',
+                    valor:
+                        'Nacionales 2026 precargados — verificar provinciales',
+                  ),
                   _InfoTile(
-                      icon: Icons.storage_outlined,
-                      label: 'Almacenamiento',
-                      valor: 'Local — SQLite vía Drift. Sin sincronización remota (v1.0)'),
+                    icon: Icons.storage_outlined,
+                    label: 'Almacenamiento',
+                    valor: 'Local — SQLite vía Drift. Sin sincronización remota (v1.0)',
+                  ),
                   _InfoTile(
-                      icon: Icons.psychology_outlined,
-                      label: 'IA',
-                      valor: 'Anthropic Claude Sonnet — análisis de imagen (requiere conexión)'),
+                    icon: Icons.psychology_outlined,
+                    label: 'IA',
+                    valor: 'Anthropic Claude Sonnet — análisis de imagen (requiere conexión)',
+                  ),
                 ],
               ),
             ),
@@ -174,7 +192,8 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
             // ── Aviso legal ──────────────────────────────────
             const LegalAlertWidget(
               tipo: TipoAlerta.advertencia,
-              mensaje: 'MULTAS ARGENTINA PRO es una herramienta informativa. '
+              mensaje:
+                  'MULTAS ARGENTINA PRO es una herramienta informativa. '
                   'No constituye asesoramiento jurídico profesional ni reemplaza '
                   'la intervención de un abogado/a matriculado/a (Ley 23.187).',
             ),
@@ -186,21 +205,29 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
               child: ElevatedButton.icon(
                 icon: _guardando
                     ? const SizedBox(
-                        width: 16, height: 16,
+                        width: 16,
+                        height: 16,
                         child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white))
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
                     : Icon(
                         _guardado ? Icons.check : Icons.save_outlined,
-                        size: 18),
-                label: Text(_guardado
-                    ? '¡Guardado!'
-                    : _guardando
-                        ? 'Guardando...'
-                        : 'Guardar configuración'),
+                        size: 18,
+                      ),
+                label: Text(
+                  _guardado
+                      ? '¡Guardado!'
+                      : _guardando
+                      ? 'Guardando...'
+                      : 'Guardar configuración',
+                ),
                 onPressed: _guardando ? null : _guardar,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      _guardado ? AppColors.success : AppColors.indigo,
+                  backgroundColor: _guardado
+                      ? AppColors.success
+                      : AppColors.indigo,
                 ),
               ),
             ),
@@ -211,14 +238,14 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
   }
 
   Widget _label(String text) => Text(
-        text,
-        style: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          color: AppColors.text3,
-          letterSpacing: 0.06,
-        ),
-      );
+    text,
+    style: const TextStyle(
+      fontSize: 11,
+      fontWeight: FontWeight.w700,
+      color: AppColors.text3,
+      letterSpacing: 0.06,
+    ),
+  );
 }
 
 // ── WIDGETS INTERNOS ──────────────────────────────────────────────
@@ -236,8 +263,7 @@ class _SectionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(titulo,
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(titulo, style: Theme.of(context).textTheme.titleMedium),
             const Divider(height: 20),
             child,
           ],
@@ -292,8 +318,7 @@ class _OpcionTile extends StatelessWidget {
               ),
             ),
             if (activo)
-              const Icon(Icons.check_circle,
-                  size: 18, color: AppColors.indigo),
+              const Icon(Icons.check_circle, size: 18, color: AppColors.indigo),
           ],
         ),
       ),
@@ -322,16 +347,24 @@ class _InfoTile extends StatelessWidget {
           const SizedBox(width: 10),
           SizedBox(
             width: 100,
-            child: Text(label,
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.text3)),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: AppColors.text3,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(valor,
-                style: const TextStyle(
-                    fontSize: 12, color: AppColors.text2, height: 1.5)),
+            child: Text(
+              valor,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.text2,
+                height: 1.5,
+              ),
+            ),
           ),
         ],
       ),

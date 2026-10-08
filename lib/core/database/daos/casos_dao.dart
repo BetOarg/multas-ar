@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
 import '../tables/tables.dart';
 
@@ -34,19 +35,21 @@ class CasosDao extends DatabaseAccessor<AppDatabase> with _$CasosDaoMixin {
   /// Casos con plazos próximos a vencer (próximos N días)
   Future<List<Caso>> getCasosConPlazosProximos({int dias = 7}) async {
     final limite = DateTime.now().add(Duration(days: dias));
-    final casosIds = await (select(plazos)
-          ..where((p) =>
-              p.fechaVencimiento.isSmallerThanValue(limite) &
-              p.vencido.equals(false) &
-              p.notificado.equals(false)))
-        .map((p) => p.casoId)
-        .get();
+    final casosIds =
+        await (select(plazos)..where(
+              (p) =>
+                  p.fechaVencimiento.isSmallerThanValue(limite) &
+                  p.vencido.equals(false) &
+                  p.notificado.equals(false),
+            ))
+            .map((p) => p.casoId)
+            .get();
 
     if (casosIds.isEmpty) return [];
 
-    return (select(casos)
-          ..where((c) => c.id.isIn(casosIds) & c.archivado.equals(false)))
-        .get();
+    return (select(
+      casos,
+    )..where((c) => c.id.isIn(casosIds) & c.archivado.equals(false))).get();
   }
 
   // ── Escrituras ──────────────────────────────────────────────────

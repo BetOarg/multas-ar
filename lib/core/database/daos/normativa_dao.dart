@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
 import '../tables/tables.dart';
 
@@ -13,7 +14,8 @@ class NormativaDao extends DatabaseAccessor<AppDatabase>
 
   /// Todas las entradas de una jurisdicción ordenadas por categoría
   Future<List<NormativaEntrada>> getEntradasPorJurisdiccion(
-      String jurisdiccion) {
+    String jurisdiccion,
+  ) {
     return (select(normativaEntradas)
           ..where((n) => n.jurisdiccion.equals(jurisdiccion))
           ..orderBy([
@@ -24,28 +26,29 @@ class NormativaDao extends DatabaseAccessor<AppDatabase>
   }
 
   /// Entradas de alta importancia (para resumen rápido)
-  Future<List<NormativaEntrada>> getEntradasCriticas(
-      String jurisdiccion) {
-    return (select(normativaEntradas)
-          ..where((n) =>
+  Future<List<NormativaEntrada>> getEntradasCriticas(String jurisdiccion) {
+    return (select(normativaEntradas)..where(
+          (n) =>
               n.jurisdiccion.equals(jurisdiccion) &
-              n.esAltaImportancia.equals(true)))
+              n.esAltaImportancia.equals(true),
+        ))
         .get();
   }
 
   /// Entradas con alerta dual (conflicto normativo)
-  Future<List<NormativaEntrada>> getAlertasDuales(
-      String jurisdiccion) {
-    return (select(normativaEntradas)
-          ..where((n) =>
+  Future<List<NormativaEntrada>> getAlertasDuales(String jurisdiccion) {
+    return (select(normativaEntradas)..where(
+          (n) =>
               n.jurisdiccion.equals(jurisdiccion) &
-              n.tieneAlertaDual.equals(true)))
+              n.tieneAlertaDual.equals(true),
+        ))
         .get();
   }
 
   /// Actualizar normativa desde JSON (actualizaciones OTA)
   Future<void> actualizarDesdeJson(
-      List<NormativaEntradasCompanion> entradas) async {
+    List<NormativaEntradasCompanion> entradas,
+  ) async {
     await batch((b) {
       b.insertAllOnConflictUpdate(normativaEntradas, entradas);
     });
@@ -55,9 +58,7 @@ class NormativaDao extends DatabaseAccessor<AppDatabase>
   Future<int> getVersionActual() async {
     final query = selectOnly(normativaEntradas)
       ..addColumns([normativaEntradas.version])
-      ..orderBy([
-        OrderingTerm.desc(normativaEntradas.version)
-      ])
+      ..orderBy([OrderingTerm.desc(normativaEntradas.version)])
       ..limit(1);
     final row = await query.getSingleOrNull();
     return row?.read(normativaEntradas.version) ?? 0;
@@ -75,21 +76,21 @@ class NormativaDao extends DatabaseAccessor<AppDatabase>
 
   /// Feriados nacionales de un año
   Future<List<Feriado>> getFeriadosNacionales(int anio) {
-    return (select(feriados)
-          ..where((f) =>
-              f.anio.equals(anio) &
-              f.tipo.equals('nacional')))
-        .get();
+    return (select(
+      feriados,
+    )..where((f) => f.anio.equals(anio) & f.tipo.equals('nacional'))).get();
   }
 
   /// Feriados de una jurisdicción específica + nacionales
   Future<List<Feriado>> getFeriadosPorJurisdiccion(
-      int anio, String jurisdiccion) {
-    return (select(feriados)
-          ..where((f) =>
+    int anio,
+    String jurisdiccion,
+  ) {
+    return (select(feriados)..where(
+          (f) =>
               f.anio.equals(anio) &
-              (f.jurisdiccion.isNull() |
-                  f.jurisdiccion.equals(jurisdiccion))))
+              (f.jurisdiccion.isNull() | f.jurisdiccion.equals(jurisdiccion)),
+        ))
         .get();
   }
 

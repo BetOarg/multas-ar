@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../app_database.dart';
 import '../tables/tables.dart';
 
@@ -20,10 +21,12 @@ class PlazosDao extends DatabaseAccessor<AppDatabase> with _$PlazosDaoMixin {
   Future<List<Plazo>> getPlazosProximos({int dias = 7}) {
     final limite = DateTime.now().add(Duration(days: dias));
     return (select(plazos)
-          ..where((p) =>
-              p.fechaVencimiento.isSmallerThanValue(limite) &
-              p.vencido.equals(false) &
-              p.notificado.equals(false))
+          ..where(
+            (p) =>
+                p.fechaVencimiento.isSmallerThanValue(limite) &
+                p.vencido.equals(false) &
+                p.notificado.equals(false),
+          )
           ..orderBy([(p) => OrderingTerm.asc(p.fechaVencimiento)]))
         .get();
   }
@@ -35,14 +38,16 @@ class PlazosDao extends DatabaseAccessor<AppDatabase> with _$PlazosDaoMixin {
 
   /// Marcar plazo como notificado
   Future<void> marcarNotificado(int plazoId) async {
-    await (update(plazos)..where((p) => p.id.equals(plazoId)))
-        .write(const PlazosCompanion(notificado: Value(true)));
+    await (update(plazos)..where((p) => p.id.equals(plazoId))).write(
+      const PlazosCompanion(notificado: Value(true)),
+    );
   }
 
   /// Marcar plazo como vencido
   Future<void> marcarVencido(int plazoId) async {
-    await (update(plazos)..where((p) => p.id.equals(plazoId)))
-        .write(const PlazosCompanion(vencido: Value(true)));
+    await (update(plazos)..where((p) => p.id.equals(plazoId))).write(
+      const PlazosCompanion(vencido: Value(true)),
+    );
   }
 
   /// Eliminar todos los plazos de un caso (al actualizar)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/services/analisis_service.dart';
 import '../theme/app_theme.dart';
 
@@ -33,8 +34,10 @@ class CampoFaltanteWidget extends StatelessWidget {
               if (faltante.esCritico)
                 Container(
                   margin: const EdgeInsets.only(left: 8),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.danger.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(4),

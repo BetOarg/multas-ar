@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../database/app_database.dart';
 import '../database/tables/tables.dart';
 
@@ -28,12 +29,10 @@ class LocalCasosRepository implements ICasosRepository {
   LocalCasosRepository(this._db);
 
   @override
-  Stream<List<Caso>> watchCasosActivos() =>
-      _db.casosDao.watchCasosActivos();
+  Stream<List<Caso>> watchCasosActivos() => _db.casosDao.watchCasosActivos();
 
   @override
-  Future<Caso?> getCasoPorId(String id) =>
-      _db.casosDao.getCasoPorId(id);
+  Future<Caso?> getCasoPorId(String id) => _db.casosDao.getCasoPorId(id);
 
   @override
   Future<String> crearCaso(CasosCompanion caso) =>
@@ -44,8 +43,7 @@ class LocalCasosRepository implements ICasosRepository {
       _db.casosDao.actualizarCaso(caso);
 
   @override
-  Future<void> archivarCaso(String id) =>
-      _db.casosDao.archivarCaso(id);
+  Future<void> archivarCaso(String id) => _db.casosDao.archivarCaso(id);
 
   @override
   Future<void> actualizarEstado(String id, String estado) =>

@@ -32,57 +32,67 @@ abstract class AppRouter {
             ScaffoldWithNav(navigationShell: shell),
         branches: [
           // ── Analizar multa ──────────────────────────────────
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: analisis,
-              name: 'analisis',
-              builder: (_, __) => const AnalisisScreen(),
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: analisis,
+                name: 'analisis',
+                builder: (_, __) => const AnalisisScreen(),
+              ),
+            ],
+          ),
 
           // ── Mis casos ───────────────────────────────────────
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: casos,
-              name: 'casos',
-              builder: (_, __) => const CasosScreen(),
-              routes: [
-                GoRoute(
-                  path: ':id',
-                  name: 'caso-detalle',
-                  builder: (_, state) =>
-                      CasoDetalleScreen(casoId: state.pathParameters['id']!),
-                ),
-              ],
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: casos,
+                name: 'casos',
+                builder: (_, __) => const CasosScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':id',
+                    name: 'caso-detalle',
+                    builder: (_, state) =>
+                        CasoDetalleScreen(casoId: state.pathParameters['id']!),
+                  ),
+                ],
+              ),
+            ],
+          ),
 
           // ── Escritos ────────────────────────────────────────
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: escritos,
-              name: 'escritos',
-              builder: (_, __) => const EscritosScreen(),
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: escritos,
+                name: 'escritos',
+                builder: (_, __) => const EscritosScreen(),
+              ),
+            ],
+          ),
 
           // ── Normativa ───────────────────────────────────────
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: normativa,
-              name: 'normativa',
-              builder: (_, __) => const NormativaScreen(),
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: normativa,
+                name: 'normativa',
+                builder: (_, __) => const NormativaScreen(),
+              ),
+            ],
+          ),
 
           // ── Configuración ───────────────────────────────────
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: configuracion,
-              name: 'configuracion',
-              builder: (_, __) => const ConfiguracionScreen(),
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: configuracion,
+                name: 'configuracion',
+                builder: (_, __) => const ConfiguracionScreen(),
+              ),
+            ],
+          ),
         ],
       ),
     ],

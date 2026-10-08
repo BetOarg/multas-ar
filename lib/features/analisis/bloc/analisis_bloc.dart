@@ -1,7 +1,9 @@
 import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:drift/drift.dart';
+
 import '../../../core/database/tables/tables.dart';
 import '../../../core/repository/casos_repository.dart';
 import '../../../core/services/ocr_service.dart';
@@ -27,12 +29,11 @@ class AnalisisBloc extends Bloc<AnalisisEvent, AnalisisState> {
     required IOcrService ocrService,
     required PlazosService plazosService,
     required AnalisisService analisisService,
-  })  : _casosRepository = casosRepository,
-        _ocrService = ocrService,
-        _plazosService = plazosService,
-        _analisisService = analisisService,
-        super(const AnalisisInitial()) {
-
+  }) : _casosRepository = casosRepository,
+       _ocrService = ocrService,
+       _plazosService = plazosService,
+       _analisisService = analisisService,
+       super(const AnalisisInitial()) {
     on<AnalizarImagenEvent>(_onAnalizarImagen);
     on<AnalizarFormularioEvent>(_onAnalizarFormulario);
     on<GuardarCasoEvent>(_onGuardarCaso);
@@ -134,10 +135,11 @@ class AnalisisBloc extends Bloc<AnalisisEvent, AnalisisState> {
   ) {
     final currentState = state;
     if (currentState is AnalisisFormularioActivo) {
-      emit(currentState.copyWith(campos: {
-        ...currentState.campos,
-        event.campo: event.valor,
-      }));
+      emit(
+        currentState.copyWith(
+          campos: {...currentState.campos, event.campo: event.valor},
+        ),
+      );
     } else {
       emit(AnalisisFormularioActivo(campos: {event.campo: event.valor}));
     }
@@ -147,6 +149,5 @@ class AnalisisBloc extends Bloc<AnalisisEvent, AnalisisState> {
     emit(const AnalisisInitial());
   }
 
-  String _generarId() =>
-      DateTime.now().millisecondsSinceEpoch.toString();
+  String _generarId() => DateTime.now().millisecondsSinceEpoch.toString();
 }

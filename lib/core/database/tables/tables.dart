@@ -35,12 +35,14 @@ class Casos extends Table {
   TextColumn get descripcionInfraccion => text().nullable()();
 
   // Estado procesal
-  TextColumn get estadoProcesal => text().withDefault(const Constant('admin'))();
+  TextColumn get estadoProcesal =>
+      text().withDefault(const Constant('admin'))();
   // admin | descargo | condenado | apelacion | firme | apremio | prescripto
 
   // Vía judicial
   BoolColumn get vaJudicial => boolean().withDefault(const Constant(false))();
-  BoolColumn get agotamientoVia => boolean().withDefault(const Constant(false))();
+  BoolColumn get agotamientoVia =>
+      boolean().withDefault(const Constant(false))();
 
   // Juzgado
   TextColumn get numeroJuzgado => text().nullable()();
@@ -52,7 +54,7 @@ class Casos extends Table {
   // Análisis OCR
   TextColumn get ocrTextoExtraido => text().nullable()();
   TextColumn get ocrConfianza => text().nullable()(); // alta | media | baja
-  TextColumn get imagenPath => text().nullable()();   // path local
+  TextColumn get imagenPath => text().nullable()(); // path local
 
   // Notas
   TextColumn get notas => text().nullable()();
@@ -61,8 +63,10 @@ class Casos extends Table {
   TextColumn get alertasActivas => text().nullable()();
 
   // Metadata
-  DateTimeColumn get creadoEn => dateTime().clientDefault(() => DateTime.now())();
-  DateTimeColumn get actualizadoEn => dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get creadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get actualizadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
   BoolColumn get archivado => boolean().withDefault(const Constant(false))();
 
   @override
@@ -75,15 +79,18 @@ class Plazos extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get casoId => text().references(Casos, #id)();
 
-  TextColumn get nombre => text()();           // "Vencimiento descargo"
+  TextColumn get nombre => text()(); // "Vencimiento descargo"
   DateTimeColumn get fechaVencimiento => dateTime()();
-  TextColumn get tipoCómputo => text()();      // habiles_admin | habiles_jud | corridos
-  TextColumn get norma => text()();            // "Art. 35 Ley 13.927 PBA"
-  BoolColumn get esAltaCriticidad => boolean().withDefault(const Constant(false))();
+  TextColumn get tipoComputo =>
+      text()(); // habiles_admin | habiles_jud | corridos
+  TextColumn get norma => text()(); // "Art. 35 Ley 13.927 PBA"
+  BoolColumn get esAltaCriticidad =>
+      boolean().withDefault(const Constant(false))();
   BoolColumn get notificado => boolean().withDefault(const Constant(false))();
   BoolColumn get vencido => boolean().withDefault(const Constant(false))();
 
-  DateTimeColumn get creadoEn => dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get creadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
 }
 
 // ── ESCRITOS ───────────────────────────────────────────────────────
@@ -97,12 +104,14 @@ class Escritos extends Table {
   // prescripcion | telegrama | demanda_contencioso | denuncia_conductor
 
   TextColumn get jurisdiccion => text()();
-  TextColumn get contenido => text()();         // texto completo del escrito
+  TextColumn get contenido => text()(); // texto completo del escrito
   TextColumn get camposFaltantes => text().nullable()(); // JSON array
   BoolColumn get completo => boolean().withDefault(const Constant(false))();
 
-  DateTimeColumn get creadoEn => dateTime().clientDefault(() => DateTime.now())();
-  DateTimeColumn get actualizadoEn => dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get creadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get actualizadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
 }
 
 // ── NORMATIVA ──────────────────────────────────────────────────────
@@ -115,12 +124,14 @@ class NormativaEntradas extends Table {
 
   TextColumn get titulo => text()();
   TextColumn get contenido => text()();
-  TextColumn get normaBase => text().nullable()();  // "Art. 35 Ley 13.927"
-  BoolColumn get esAltaImportancia => boolean().withDefault(const Constant(false))();
+  TextColumn get normaBase => text().nullable()(); // "Art. 35 Ley 13.927"
+  BoolColumn get esAltaImportancia =>
+      boolean().withDefault(const Constant(false))();
   IntColumn get orden => integer().withDefault(const Constant(0))();
 
   // Para alertas duales (ej. fallo Andrade CABA, caducidad PBA)
-  BoolColumn get tieneAlertaDual => boolean().withDefault(const Constant(false))();
+  BoolColumn get tieneAlertaDual =>
+      boolean().withDefault(const Constant(false))();
   TextColumn get alertaDualDetalle => text().nullable()();
 
   // Versión para updates OTA
@@ -128,7 +139,8 @@ class NormativaEntradas extends Table {
   DateTimeColumn get vigenciaDesde => dateTime().nullable()();
   DateTimeColumn get vigenciaHasta => dateTime().nullable()();
 
-  DateTimeColumn get actualizadoEn => dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get actualizadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
 }
 
 // ── CONFIGURACION ──────────────────────────────────────────────────
@@ -136,7 +148,8 @@ class NormativaEntradas extends Table {
 class Configuracion extends Table {
   TextColumn get clave => text()();
   TextColumn get valor => text()();
-  DateTimeColumn get actualizadoEn => dateTime().clientDefault(() => DateTime.now())();
+  DateTimeColumn get actualizadoEn =>
+      dateTime().clientDefault(() => DateTime.now())();
 
   @override
   Set<Column> get primaryKey => {clave};

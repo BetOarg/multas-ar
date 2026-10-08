@@ -2,10 +2,7 @@ import 'dart:io';
 
 /// Resultado de una extracción OCR.
 class OcrResult {
-  const OcrResult({
-    required this.rawText,
-    required this.confidence,
-  });
+  const OcrResult({required this.rawText, required this.confidence});
 
   final String rawText;
   final double confidence;

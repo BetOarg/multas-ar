@@ -81,14 +81,13 @@ class MultasArApp extends StatelessWidget {
             ),
           ),
           BlocProvider<CasosBloc>(
-            create: (ctx) => CasosBloc(
-              casosRepository: ctx.read<ICasosRepository>(),
-            )..add(const CargarCasosEvent()),
+            create: (ctx) =>
+                CasosBloc(casosRepository: ctx.read<ICasosRepository>())
+                  ..add(const CargarCasosEvent()),
           ),
           BlocProvider<EscritosBloc>(
-            create: (ctx) => EscritosBloc(
-              casosRepository: ctx.read<ICasosRepository>(),
-            ),
+            create: (ctx) =>
+                EscritosBloc(casosRepository: ctx.read<ICasosRepository>()),
           ),
         ],
         child: MaterialApp.router(

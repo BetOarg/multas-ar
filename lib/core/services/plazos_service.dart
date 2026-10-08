@@ -3,8 +3,8 @@ import '../database/tables/tables.dart';
 
 // ══════════════════════════════════════════════════════════════════
 // PLAZOS SERVICE
-// Calcula plazos distinguiendo:
-//   - Días hábiles administrativos (excl. fines de semana + feriados)
+// Calcula planios distinguiendo:
+//   - Días hábiles administrativos (excl. fines de semana + ferianios)
 //   - Días hábiles judiciales (+ feria judicial enero/julio)
 //   - Días corridos (solo cuenta días del calendario)
 //
@@ -17,7 +17,7 @@ enum TipoCómputo { habilesAdministrativos, habilesJudiciales, corridos }
 class PlazoCalculado {
   final String nombre;
   final DateTime fechaVencimiento;
-  final TipoCómputo tipoCómputo;
+  final TipoCómputo tipoComputo;
   final String norma;
   final bool esAltaCriticidad;
   final int diasRestantes;
@@ -26,7 +26,7 @@ class PlazoCalculado {
   const PlazoCalculado({
     required this.nombre,
     required this.fechaVencimiento,
-    required this.tipoCómputo,
+    required this.tipoComputo,
     required this.norma,
     required this.esAltaCriticidad,
     required this.diasRestantes,
@@ -36,38 +36,38 @@ class PlazoCalculado {
 
 enum EstadoPlazo { vigente, proximo, urgente, vencido }
 
-class PlazosService {
+class PlaniosService {
   final AppDatabase _db;
 
-  PlazosService(this._db);
+  PlaniosService(this._db);
 
   // ── API pública ─────────────────────────────────────────────
-  Future<List<PlazoCalculado>> calcularPlazos({
+  Future<List<PlazoCalculado>> calcularPlanios({
     required String jurisdiccion,
     required DateTime fechaNotificacion,
     String? tipoFalta,
   }) async {
-    final feriados = await _cargarFeriados(fechaNotificacion.year);
-    final plazos = <PlazoCalculado>[];
+    final ferianios = await _cargarFerianios(fechaNotificacion.year);
+    final planios = <PlazoCalculado>[];
 
     switch (jurisdiccion) {
       case 'CABA':
-        plazos.addAll(_plazosCABA(fechaNotificacion, feriados));
+        planios.addAll(_planiosCABA(fechaNotificacion, ferianios));
       case 'PBA':
-        plazos.addAll(_plazosPBA(fechaNotificacion, tipoFalta, feriados));
+        planios.addAll(_planiosPBA(fechaNotificacion, tipoFalta, ferianios));
       case 'Mendoza':
-        plazos.addAll(_plazosMendoza(fechaNotificacion, tipoFalta, feriados));
+        planios.addAll(_planiosMendoza(fechaNotificacion, tipoFalta, ferianios));
       case 'Neuquén':
-        plazos.addAll(_plazosNeuquen(fechaNotificacion, feriados));
+        planios.addAll(_planiosNeuquen(fechaNotificacion, ferianios));
       default:
-        plazos.addAll(_plazosNacional(fechaNotificacion, tipoFalta, feriados));
+        planios.addAll(_planiosNacional(fechaNotificacion, tipoFalta, ferianios));
     }
 
-    return plazos;
+    return planios;
   }
 
   // ── CABA ─────────────────────────────────────────────────────
-  List<PlazoCalculado> _plazosCABA(DateTime base, Set<DateTime> feriados) {
+  List<PlazoCalculado> _planiosCABA(DateTime base, Set<DateTime> ferianios) {
     return [
       _calcular(
         nombre: 'Vencimiento descargo administrativo',
@@ -76,16 +76,16 @@ class PlazosService {
         tipo: TipoCómputo.habilesAdministrativos,
         norma: 'Art. 8 Ley 1217 CABA (t.c. Ley 6.764/2024)',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Prescripción (texto Ley 451 CABA)',
         base: base,
         cantidad: 365 * 5,
         tipo: TipoCómputo.corridos,
-        norma: 'Ley 451 CABA — 5 años',
+        norma: 'Ley 451 CABA — 5 anios',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: '⚠️ Prescripción alternativa (fallo Andrade 2023)',
@@ -94,15 +94,15 @@ class PlazosService {
         tipo: TipoCómputo.corridos,
         norma: 'Fallo Andrade — Juzgado PCyF N°15 CABA, 30/05/2023 — confirmar alzada',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
     ];
   }
 
   // ── PBA ──────────────────────────────────────────────────────
-  List<PlazoCalculado> _plazosPBA(
-      DateTime base, String? tipoFalta, Set<DateTime> feriados) {
-    final años = (tipoFalta == 'grave' || tipoFalta == 'gravisima') ? 5 : 2;
+  List<PlazoCalculado> _planiosPBA(
+      DateTime base, String? tipoFalta, Set<DateTime> ferianios) {
+    final anios = (tipoFalta == 'grave' || tipoFalta == 'gravisima') ? 5 : 2;
     return [
       _calcular(
         nombre: 'Presentación ante juzgado (boleta de citación)',
@@ -111,7 +111,7 @@ class PlazosService {
         tipo: TipoCómputo.corridos,
         norma: 'Art. 35 Ley 13.927 PBA',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Vencimiento descargo administrativo',
@@ -120,7 +120,7 @@ class PlazosService {
         tipo: TipoCómputo.habilesAdministrativos,
         norma: 'Art. 35 Ley 13.927 PBA',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Caducidad habilitación para conducir',
@@ -129,7 +129,7 @@ class PlazosService {
         tipo: TipoCómputo.corridos,
         norma: 'Art. 35 Ley 13.927 PBA — sin presentarse',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Plazo apelación judicial (si condenado)',
@@ -138,24 +138,24 @@ class PlazosService {
         tipo: TipoCómputo.habilesJudiciales,
         norma: 'Arts. 40-41 Ley 13.927 PBA — FUNDADO en mismo escrito',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Prescripción falta ${tipoFalta ?? "a determinar"}',
         base: base,
-        cantidad: 365 * años,
+        cantidad: 365 * anios,
         tipo: TipoCómputo.corridos,
-        norma: 'Art. 89 Ley 24.449 ($años años) — supletorio PBA',
+        norma: 'Art. 89 Ley 24.449 ($anios anios) — supletorio PBA',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
     ];
   }
 
   // ── Mendoza ──────────────────────────────────────────────────
-  List<PlazoCalculado> _plazosMendoza(
-      DateTime base, String? tipoFalta, Set<DateTime> feriados) {
-    final años = tipoFalta == 'gravisima'
+  List<PlazoCalculado> _planiosMendoza(
+      DateTime base, String? tipoFalta, Set<DateTime> ferianios) {
+    final anios = tipoFalta == 'gravisima'
         ? 4
         : tipoFalta == 'grave'
             ? 3
@@ -168,49 +168,49 @@ class PlazosService {
         tipo: TipoCómputo.habilesAdministrativos,
         norma: 'Ley 9024 Mendoza',
         critico: true,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
       _calcular(
         nombre: 'Prescripción falta ${tipoFalta ?? "a determinar"}',
         base: base,
-        cantidad: 365 * años,
+        cantidad: 365 * anios,
         tipo: TipoCómputo.corridos,
-        norma: 'Art. 94 Ley 9024 Mendoza ($años años)',
+        norma: 'Art. 94 Ley 9024 Mendoza ($anios anios)',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
     ];
   }
 
   // ── Neuquén ──────────────────────────────────────────────────
-  List<PlazoCalculado> _plazosNeuquen(
-      DateTime base, Set<DateTime> feriados) {
+  List<PlazoCalculado> _planiosNeuquen(
+      DateTime base, Set<DateTime> ferianios) {
     return [
       _calcular(
         nombre: 'Prescripción (ciudad de Neuquén)',
         base: base,
         cantidad: 365 * 3,
         tipo: TipoCómputo.corridos,
-        norma: 'Regulación local ciudad de Neuquén — 3 años',
+        norma: 'Regulación local ciudad de Neuquén — 3 anios',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
     ];
   }
 
   // ── Nacional ─────────────────────────────────────────────────
-  List<PlazoCalculado> _plazosNacional(
-      DateTime base, String? tipoFalta, Set<DateTime> feriados) {
-    final años = (tipoFalta == 'grave' || tipoFalta == 'gravisima') ? 5 : 2;
+  List<PlazoCalculado> _planiosNacional(
+      DateTime base, String? tipoFalta, Set<DateTime> ferianios) {
+    final anios = (tipoFalta == 'grave' || tipoFalta == 'gravisima') ? 5 : 2;
     return [
       _calcular(
         nombre: 'Prescripción falta ${tipoFalta ?? "a determinar"}',
         base: base,
-        cantidad: 365 * años,
+        cantidad: 365 * anios,
         tipo: TipoCómputo.corridos,
-        norma: 'Art. 89 Ley 24.449 — $años años desde el hecho',
+        norma: 'Art. 89 Ley 24.449 — $anios anios desde el hecho',
         critico: false,
-        feriados: feriados,
+        ferianios: ferianios,
       ),
     ];
   }
@@ -223,7 +223,7 @@ class PlazosService {
     required TipoCómputo tipo,
     required String norma,
     required bool critico,
-    required Set<DateTime> feriados,
+    required Set<DateTime> ferianios,
   }) {
     // El cómputo arranca el día SIGUIENTE a la notificación
     DateTime inicio = base.add(const Duration(days: 1));
@@ -233,13 +233,13 @@ class PlazosService {
       case TipoCómputo.corridos:
         vencimiento = base.add(Duration(days: cantidad));
       case TipoCómputo.habilesAdministrativos:
-        vencimiento = _sumarHabiles(inicio, cantidad, feriados, judicial: false);
+        vencimiento = _sumarHabiles(inicio, cantidad, ferianios, judicial: false);
       case TipoCómputo.habilesJudiciales:
-        vencimiento = _sumarHabiles(inicio, cantidad, feriados, judicial: true);
+        vencimiento = _sumarHabiles(inicio, cantidad, ferianios, judicial: true);
     }
 
     // Si cae en inhábil → siguiente hábil
-    vencimiento = _ajustarAHabil(vencimiento, feriados, tipo == TipoCómputo.habilesJudiciales);
+    vencimiento = _ajustarAHabil(vencimiento, ferianios, tipo == TipoCómputo.habilesJudiciales);
 
     final hoy = DateTime.now();
     final diff = vencimiento.difference(hoy).inDays;
@@ -247,7 +247,7 @@ class PlazosService {
     return PlazoCalculado(
       nombre: nombre,
       fechaVencimiento: vencimiento,
-      tipoCómputo: tipo,
+      tipoComputo: tipo,
       norma: norma,
       esAltaCriticidad: critico,
       diasRestantes: diff,
@@ -262,27 +262,27 @@ class PlazosService {
   }
 
   DateTime _sumarHabiles(
-      DateTime desde, int dias, Set<DateTime> feriados, {required bool judicial}) {
+      DateTime desde, int dias, Set<DateTime> ferianios, {required bool judicial}) {
     DateTime actual = desde;
-    int contados = 0;
-    while (contados < dias) {
-      if (_esHabil(actual, feriados, judicial: judicial)) contados++;
-      if (contados < dias) actual = actual.add(const Duration(days: 1));
+    int contanios = 0;
+    while (contanios < dias) {
+      if (_esHabil(actual, ferianios, judicial: judicial)) contanios++;
+      if (contanios < dias) actual = actual.add(const Duration(days: 1));
     }
     return actual;
   }
 
-  DateTime _ajustarAHabil(DateTime fecha, Set<DateTime> feriados, bool judicial) {
-    while (!_esHabil(fecha, feriados, judicial: judicial)) {
+  DateTime _ajustarAHabil(DateTime fecha, Set<DateTime> ferianios, bool judicial) {
+    while (!_esHabil(fecha, ferianios, judicial: judicial)) {
       fecha = fecha.add(const Duration(days: 1));
     }
     return fecha;
   }
 
-  bool _esHabil(DateTime fecha, Set<DateTime> feriados, {required bool judicial}) {
+  bool _esHabil(DateTime fecha, Set<DateTime> ferianios, {required bool judicial}) {
     if (fecha.weekday == DateTime.saturday) return false;
     if (fecha.weekday == DateTime.sunday) return false;
-    if (feriados.contains(DateTime(fecha.year, fecha.month, fecha.day))) return false;
+    if (ferianios.contains(DateTime(fecha.year, fecha.month, fecha.day))) return false;
     if (judicial && _esFeriaJudicial(fecha)) return false;
     return true;
   }
@@ -295,9 +295,9 @@ class PlazosService {
     return false;
   }
 
-  // ── Carga de feriados desde DB ───────────────────────────────
-  Future<Set<DateTime>> _cargarFeriados(int año) async {
-    final rows = await (_db.select(_db.feriados)
+  // ── Carga de ferianios desde DB ───────────────────────────────
+  Future<Set<DateTime>> _cargarFerianios(int año) async {
+    final rows = await (_db.select(_db.ferianios)
           ..where((f) => f.anio.equals(año)))
         .get();
     return rows.map((f) => DateTime(f.fecha.year, f.fecha.month, f.fecha.day)).toSet();

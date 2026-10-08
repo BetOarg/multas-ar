@@ -67,8 +67,9 @@ void main() {
       );
       final resultado = svc.analizar(acta);
       expect(
-        resultado.oportunidades
-            .any((o) => o.contains('firma') || o.contains('agente')),
+        resultado.oportunidades.any(
+          (o) => o.contains('firma') || o.contains('agente'),
+        ),
         true,
       );
     });
@@ -88,10 +89,12 @@ void main() {
       );
       final resultado = svc.analizar(acta);
       expect(
-        resultado.alertas.any((a) =>
-            a.tipo == TipoAlerta.advertencia &&
-            (a.mensaje.contains('Andrade') ||
-             a.mensaje.contains('prescripción'))),
+        resultado.alertas.any(
+          (a) =>
+              a.tipo == TipoAlerta.advertencia &&
+              (a.mensaje.contains('Andrade') ||
+                  a.mensaje.contains('prescripción')),
+        ),
         true,
       );
     });
@@ -109,9 +112,10 @@ void main() {
       );
       final resultado = svc.analizar(acta);
       expect(
-        resultado.alertas.any((a) =>
-            a.tipo == TipoAlerta.advertencia &&
-            a.mensaje.contains('60 días')),
+        resultado.alertas.any(
+          (a) =>
+              a.tipo == TipoAlerta.advertencia && a.mensaje.contains('60 días'),
+        ),
         true,
       );
     });
@@ -131,10 +135,7 @@ void main() {
       );
       final resultado = svc.analizar(acta);
       expect(resultado.posiblePrescripcion, true);
-      expect(
-        resultado.alertas.any((a) => a.tipo == TipoAlerta.peligro),
-        true,
-      );
+      expect(resultado.alertas.any((a) => a.tipo == TipoAlerta.peligro), true);
     });
 
     test('no marca prescripción si la acción está vigente', () {
@@ -167,9 +168,11 @@ void main() {
       );
       final resultado = svc.analizar(acta);
       expect(
-        resultado.alertas.any((a) =>
-            a.tipo == TipoAlerta.peligro &&
-            a.mensaje.contains('plan de pagos')),
+        resultado.alertas.any(
+          (a) =>
+              a.tipo == TipoAlerta.peligro &&
+              a.mensaje.contains('plan de pagos'),
+        ),
         true,
       );
     });

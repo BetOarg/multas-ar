@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+
 import 'plazos_service.dart';
 
 // ══════════════════════════════════════════════════════════════════
@@ -14,9 +15,11 @@ class NotificationService {
   static const _channelDesc = 'Alertas de vencimientos críticos de multas';
 
   static Future<void> inicializar(
-      FlutterLocalNotificationsPlugin plugin) async {
-    const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    FlutterLocalNotificationsPlugin plugin,
+  ) async {
+    const androidSettings = AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
     const iosSettings = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -37,7 +40,8 @@ class NotificationService {
     );
     await plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(androidChannel);
   }
 
@@ -51,8 +55,9 @@ class NotificationService {
   }) async {
     if (plazo.diasRestantes < 0) return; // ya vencido
 
-    final fechaNotif = plazo.fechaVencimiento
-        .subtract(Duration(days: diasAntes));
+    final fechaNotif = plazo.fechaVencimiento.subtract(
+      Duration(days: diasAntes),
+    );
     if (fechaNotif.isBefore(DateTime.now())) return;
 
     final tzFecha = tz.TZDateTime.from(fechaNotif, tz.local);
